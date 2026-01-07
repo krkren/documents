@@ -1,268 +1,268 @@
 ---
 layout: default
-title: コマンドラインオプション
+title: Command Line Options
 ---
 
-# コマンドラインオプション
-吉里吉里のコマンドラインオプションは通常のコマンドラインから指定するほかに、[Releaser]() ( krkrrel.exe ) または [吉里吉里設定]() ( -userconf ) で設定ファイルに保存することができます。  
-オプションが読み込まれる順序は
+# Command Line Options
+Kirikiri's command line options can be specified from a standard command line, or saved in a configuration file using [Releaser]() ( krkrrel.exe ) or [Kirikiri Configuration]() ( -userconf ).
+The order in which options are loaded is:
 
-1. 吉里吉里本体に埋め込まれたオプション
-2. 吉里吉里コアと同じディレクトリにある .cf ファイル (ファイル名は吉里吉里コアと同じ)
-3. 「エンジン設定」(-userconf)が出力した、データ保存場所にある .cfu ファイル (ファイル名は吉里吉里コアと同じ)
-4. コマンドラインに指定されたオプション
+1. Options embedded in the Kirikiri executable itself
+2. The .cf file located in the same directory as the Kirikiri core (filename is the same as the Kirikiri core)
+3. The .cfu file in the data storage location output by "Engine Configuration" (-userconf) (filename is the same as the Kirikiri core)
+4. Options specified on the command line
 
-となります。.cf ファイルや .cfu ファイルについては、存在しない場合は単に無視されます。後に読み込んだ指定ほど優先されます。
+If the .cf or .cfu files do not exist, they are simply ignored. Options loaded later take higher priority.
 
-コマンドラインのオプションは基本的に '-' (ハイフン) に引き続き、オプションの名前が来ます。そのあとそれに引き続き '=' を書き、オプションの値を書きます。  
-たとえば -cdvol というオプションの値が direct ならば、-cdvol=direct と指定します。
+Command line options basically consist of a '-' (hyphen) followed by the option name. This is followed by '=' and the value of the option.
+For example, if the value of the -cdvol option is direct, you specify it as -cdvol=direct.
 
-「起動オプション」や「デバッグ関連のオプション」や「システム互換性関連のオプション」を除けば、ほとんどは環境依存の問題を解決するための微調整を行うオプションです。  
-環境依存の問題の解決については[環境依存の不具合について]()も参照してください。
-
-
-> Note  
-> Releaser や -userconf では、吉里吉里の実行可能ファイルや外部の設定ファイルを書き換えてこれらのオプションを変更できますが、*通常はデフォルトのままで問題ありません。作品を制作する側固有の環境で問題があるということで、これらのオプションをデフォルトの物でないものに変えたままの実行可能ファイルや設定ファイルを一般に配布することはおすすめできません* (もちろん -datapath のように配布形態や使用形態にしたがって設定すべきオプションもあります)。
-
-下のリストの中で「動的に変更可能」という表記がある物は、[System.setArgument]() メソッドで変更が可能な物です。それ以外のオプションは動的に変更を行うことは出来ません。
-
-## 起動オプション
-吉里吉里の特定の機能のみを呼び出して使うために以下のオプションがあります。
-* __-userconf (エンドユーザ向け設定ツールの起動)__  
-    本体に内蔵されているエンドユーザ向け設定ツールを起動します。
-* __-about (著作権情報ダイアログボックスの表示)__  
-    「バージョン・著作権・環境情報」のダイアログボックスを表示します。
-* __-sel (「フォルダ/アーカイブの選択」ダイアログボックスの表示)__  
-    「フォルダ/アーカイブの選択」ダイアログボックスを表示します。data.xp3 などのデータは自動検出されません。  
-    コマンドラインパラメータとして(先頭にハイフンをつけずに)フォルダを指定すると、そのフォルダが初期状態で選択された状態で「フォルダ/アーカイブの選択」ダイアログボックスを開くことができます。
-* __-printdatapath (データ保存場所の出力)__  
-    データ保存場所 (-datapathオプション) の設定内容と改行を標準出力に出力し、終了します。このオプションは、吉里吉里本体と連携してセーブデータの管理を行う外部アプリケーションなどが利用するためにあります。  
-    データ保存場所のうち、$(exepath) などの特殊な文字列は、置き換えられた後の状態で出力されます。  
-    吉里吉里本体は GUI アプリケーションのため、コマンドプロンプトから単に吉里吉里実行可能ファイルに -printdatapath オプションを指定して起動しても何も表示されません。出力内容を取り込むにはパイプやリダイレクトを用いてください。
-* __-startup (起動スクリプトの指定)__  
-    最初に実行するスクリプトファイル名を指定します。  
-    指定がない場合は、startup.tjs が実行されます。
-
-## システム全般のオプション
-* __-datapath (データ保存場所)__  
-    吉里吉里が様々なデータを保存する場所(フォルダ)の設定です。  
-    設定可能な値は文字列で指定します。  
-    単純にフォルダ名をフルパスで指定することもできますが、通常は以下の特殊な文字列を埋め込んで使います。
-    * __$(exepath)__  
-        System.exePath(吉里吉里コアのあるフォルダ名)に置き換えられます。
-    * __$(appdatapath)__   
-        System.appDataPath(ユーザのホームフォルダ)に置き換えられます。このフォルダは通常、隠しフォルダになっています。
-    * __$(personalpath)__  
-        System.personalPath(マイドキュメントフォルダ)に置き換えられます。
-    * __$(vistapath)__  
-        OSがVista以降の場合に$(appdatapath)に、Vista未満の場合に$(exepath)に置き置き換えられます。
-    * __$(savedgamespath)__  
-        System.savedGamesPath(ゲームのセーブデータ用フォルダ)に置き換えられます。(1.1.0以降)
-
-    デフォルトでは「$(exepath)\savedata」となっています。この設定は、インストーラなどを特に用いずにプログラムを zip 等で圧縮・アーカイブして配布し、ユーザにそれを展開して頂いてすぐにプログラム実行、という配布形態に適した設定です。  
-    しかし、このデフォルトの設定では、Program Files 以下にプログラムを配置した場合、Program Files 以下に書き込む権限がない、Windows XP 等の「制限ユーザ」等でプログラムを起動した場合に、ファイルを書き込むことができずにエラーになる可能性があります。  
-    「$(appdatapath)\アプリケーション名」や「$(personalpath)\アプリケーション名」のような名称にすれば、ユーザごとのフォルダに書き込まれることになりますのでこういう問題は発生しにくくなりますが、セーブデータ保存場所の見通しが悪くなるのでユーザがとまどうかもしれません。  
-
-    このオプションで指定されたデータ保存場所は、吉里吉里起動時に、もし存在していなければ作成が試みられます。作成が失敗してもそこで終了とはならずに処理が続行しますので、エラー処理はユーザのスクリプト内で(データが保存できないなどの例外を捕捉することにより)行ってください。
-
-    「エンジン設定」で行った設定は、このデータ保存場所で指定したフォルダの中に作成されます。そのほか、各種ログも、標準ではこのフォルダの中に作成されます。
-* __-contfreq (処理ウェイト)__  
-    トランジション時などの処理をウェイトをかけながら指定の周期で呼び出すことにより、CPU使用率を低減させるかどうかの設定です。  
-    設定可能な値は *'0' (ウェイトをかけない)* あるいは正の整数で、このオプションを指定しないと '0' が指定されたものと見なされます。正の整数を指定した場合は Hz 単位の周期を指定することができます。  
-    このオプションの影響を受けるのはトランジションや System.addContinuousHandler で登録した Continuous ハンドラです。  
-    '0' にすると、トランジションを実行中などにCPUを使い切って処理を行います。  
-    数値を指定すると、その周期で処理を行うようになり、余った時間はCPUを休ませることになります。これにより、他のアプリケーションへの影響や、CPU温度の上昇、コンピュータの消費電力を抑えることができます。低い数値を指定すればするほどこの効果は高まります。ただし、低い数値を指定するとトランジションなどがなめらかでなくなる可能性があります。  
-    waitvsync オプションで垂直同期待ちを行うと、Continuous ハンドラが垂直同期のタイミングに合わせて駆動されるようになり、contfreq オプションの設定内容は無視されます。  
-    このオプションは動的に変更することが可能ですが、変更が反映されるのは次にトランジションや Continuous ハンドラの動作がとぎれた時です。
-* __-memusage (メモリ使用量)__  
-    メモリ使用量の設定です。  
-    設定可能な値は *'normal' (通常)* あるいは *'low' (低い)* で、このオプションを指定しないと 'normal' が指定されたものと見なされます。  
-    「低い」を選択すると「通常」を選択したときよりもメモリを節約して使用するようになります。しかし「低い」を選択すると、吉里吉里内部の様々なキャッシュ機構が制限されたり、 TJS2 のハッシュ表のサイズが制限されるため、パフォーマンスは低下します。また、「低い」を選択すると、「グラフィック-画像キャッシュ制限」は強制的に「キャッシュを行わない」の設定であると見なされます。
-* __-timerprec (タイマの精度)__  
-    タイマの精度の高さの設定です。  
-    設定可能な値は *'normal' (通常)* あるいは *'higher' (やや高い)* あるいは *'high' (高い)* で、このオプションを指定しないと 'normal' が指定されたものと見なされます。  
-    'higher' や 'high' を指定すると全体的にタイマ ( 時間やタイミングに関する物のほとんども含む ) の精度が高くなり、KAG での文字表示のもたつき感や MIDI 再生のもたつき感が解消される可能性がありますが、パフォーマンスが低下する可能性もあります。
-* __-laxtimer (タイマイベント許容量制限)__  
-    一度にシステムに蓄えられるタイマイベントの数 ( 最大発生許容量 ) を制限し、タイマイベントが溜まりすぎて処理できなくなる状況を回避するかどうかの設定です。   
-    設定可能な値は *'no' (しない)* あるいは *'yes' (する)* で、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    処理の非常に遅いコンピュータや、非常に重たい処理をタイマで駆動するような場面などでは、タイマによって発生したイベントに対応しきれず、操作などに吉里吉里が応答しづらくなる場合があります。このオプションで 'yes' を指定すると、システムに蓄えられるタイマイベントの最大発生許容量を常に 1 ( Timer クラスの capacity プロパティが 1 の状態 ) に固定します。これによりシステムが処理しきれないようなタイマイベントの発生を抑えることができますが、通常、タイマの精度や正確性は失われます。
-* __-lowpri (低優先度)__  
-    優先度を、トランジション時などに低くするかどうかの設定です。  
-    設定可能な値は *'no' (しない)* あるいは *'yes' (する)* で、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    'yes' にすると、トランジションを実行中など、吉里吉里のメインスレッドが連続して CPU を使用する場面になると、メインスレッドの実行優先度を下げるようになります。これにより、トランジション中の音飛びや、トランジション中に他のアプリケーションが操作しづらくなるなどの症状が改善される場合があります。
-* __-exceptionexe (例外時起動エディタ)__  
-    例外発生時に起動するエディタを指定します。
-* __-exceptionarg (例外時起動エディタオプション)__  
-    例外発生時にエディタを起動する時に指定するオプションを指定します。  
-    単純に引数を指定することもできますが、通常は以下の特殊な文字列を埋め込んで使います。
-    * __%filepath%__  
-        例外の発生したスクリプトのファイルパスに置き換えられます。
-    * __%line%__  
-        例外の発生した行番号に置き換えられます。
+Except for "Startup Options," "Debug-related Options," and "System Compatibility Options," most are fine-tuning options to resolve environment-dependent issues.
+For resolving environment-dependent issues, please also refer to [About Environment-Dependent Bugs]().
 
 
-## 入力関連のオプション
-* __-wheel (マウスホイール回転検出方法)__  
-    マウスホイールの回転をどのように検出するかの設定です。  
-    設定可能な値は *'no' (使わない)* あるいは *'dinput' (DierctInput)* あるいは *'message' (ウィンドウメッセージ)* で、このオプションを指定しないと 'dinput' が指定されたものと見なされます。  
-    「使わない」を選択するとマウスホイールは使用不可能になります。「DirectInput」を選択するとDirectInputを使用するようになります。「ウィンドウメッセージ」を選択するとDirectInputを使用せずにマウスホイールの回転を検出するようになります。設定を変えると、マウスホイール関連の不具合が改善される可能性があります。
-* __-joypad (パッド使用可否)__  
-    ゲームパッド(ジョイスティック)を使用するかどうかの設定です。  
-    設定可能な値は *'no' (使わない)* あるいは *'dinput' (使う)* で、このオプションを指定しないと 'dinput' が指定されたものと見なされます。  
-    「使わない」を選択するとパッドは使用不可能になります。パッドを正常に検出できない場合、あるいはパッドを正常に使用できない場合に「使わない」の設定にしてください。  
-* __-paddelay (パッドキーリピートディレイ)__  
-    ゲームパッド(ジョイスティック)のキーリピートまでの時間をミリ秒単位で指定します。  
-    設定可能な値は正の数あるいは-1で、-1を指定するとキーリピートを行わなくなります。このオプションを指定しないと 500 が指定されたものと見なされます。  
-    このオプションは動的に変更可能です。  
-* __-padinterval (パッドキーリピート間隔)__  
-    パッド(ジョイスティック)のキーリピートの間隔をミリ秒単位で指定します。値が小さいほどリピートが高速になります。  
-    設定可能な値は正の数で、このオプションを指定しないと 30 が指定されたものと見なされます  
-    このオプションは動的に変更可能です。  
-* __-controlime (IME状態制御)__  
-    IME(日本語などの変換入力ソフト)の状態制御(有効か無効かなどの制御)を行うかどうかの設定です。  
-    設定可能な値は *'yes' (行う)* あるいは *'no' (行わない)* で、このオプションを指定しないと 'yes' が指定されたものと見なされます。  
-    「行わない」を選択すると、「IMEを通じて入力を行う日本語などの言語の入力ができない」といった不具合を回避できる可能性があります。  
+> Note
+> With Releaser or -userconf, you can change these options by modifying the Kirikiri executable or external configuration files, but *normally it is fine to leave them at their defaults. It is not recommended to distribute executables or configuration files to the general public with these options changed from their defaults just because there is an issue in the creator's specific environment* (of course, there are options like -datapath that should be set according to the distribution or usage format).
 
-## サウンド関連のオプション
-* -wsdecpri (PCM デコードスレッド優先順位)  
-    　PCM のデコードを行うスレッドの優先順位です。  
-    　設定可能な値は '0' (アイドル(最低)), '1' (低い), '2' (通常以下), '3' (通常), '4' (通常以上), '5' (高い) のいずれかで、このオプションを指定しないと '1' が指定されたものと見なされます。  
-    　優先順位を高くすると PCM ( 無圧縮 wave や OggVorbis 等 ) の再生中の音飛びが軽減される場合がありますが、トランジションがなめらかでなくなったり、操作への応答性が悪くなる可能性があります。  
-    　ちなみにここで指定するのは通常時のデコードの優先順位で、緊急時 ( バッファにたまっている残りデータが短くなってきたとき ) は自動的に必要な優先順位を確保します。  
-* -wssoft (DirectSound ソフトウェアミキシング)  
-    　DirectSoundでソフトウェアを使ってミキシングを行うかどうかの設定です。  
-    　設定可能な値は 'yes' (ソフトウェアミキシングを行う), 'no' (ソフトウェアミキシングを行わない) のいずれかで、このオプションを指定しないと 'yes' が指定されたものと見なされます。  
-    　標準の設定では、ソフトウェアでミキシングを行うので、CPUの負荷が高くなりますが、ハードウェア固有の不具合を回避できる可能性が高くなります。このオプションで 'no' を指定しても(ハードエアでミキシングを行っても) 問題がないならば、CPU 負荷を低くすることができる場合があります。USB オーディオや安価なサウンドカードでは、ミキシングは常に CPU で行う場合があるので、このオプションを変更しても影響が無い場合があります。  
-* -wsrecreate (DirectSound セカンダリバッファ再生成)  
-    　DirectSoundでセカンダリバッファを常に再生成を行うかどうかの設定です。  
-    　設定可能な値は 'yes' (常に再生成), 'no' (必要に応じて再生成) のいずれかで、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    　吉里吉里ではいったん作成したセカンダリバッファは、チャネル数やサンプリング周波数などの条件が同一であれば再利用しますが、'yes' を指定すると再利用をせずに常に再生成するようになります。環境によっては再生開始時の音飛びや音切れなどの不安定性が改善される可能性があります。  
-* -wsl1len (DirectSound セカンダリバッファ長さ)  
-    　DirectSound セカンダリバッファの長さの設定です。  
-    　設定可能な値は 整数で、ミリ秒単位で指定します。最低 250ms 必要です。このオプションを指定しないと 1000 が指定されたものと見なされます。  
-    　ここで指定するのは実際に DirectSound のセカンダリバッファとして確保されるバッファの長さです。
-    　一般に、長くとると再生は安定しますが、メモリを消費します。  
-* -wsl2len (DirectSound セカンダリ補助バッファ長さ)  
-    　DirectSound セカンダリバッファ用の２次バッファの長さの設定です。  
-    　設定可能な値は 整数で、ミリ秒単位で指定します。最低 250ms 必要です。このオプションを指定しないと 1000 が指定されたものと見なされます。  
-    　吉里吉里は、DirectSound のセカンダリバッファごとに補助バッファを作成し、いったんデコードしたデータをこの補助バッファに蓄積してからセカンダリバッファに転送します。ここで指定するバッファの長さはその補助バッファの長さです。  
-    　通常、デコード処理と補助バッファへの蓄積は優先度の低いスレッドで行われますが、補助バッファからセカンダリバッファへの転送は高い優先度を持ったスレッドで行われます。  
-    　一般に、長くとると再生は安定しますが、メモリを消費します。また、デコード処理に変化を加えるような制御をした場合、それが実際に発音されるまでのディレイが長くなります。  
-* -wsmute (DirectSound ミュート)  
-    　DirectSoundでアプリケーションが非アクティブあるいは最小化した際にミュートするか(音量を下げるか)の設定です。  
-    　設定可能な値は 'never' (ミュートしない), 'minimize' (最小化時), 'deactive' (非アクティブ時) のいずれかで、このオプションを指定しないと 'never' が指定されたものと見なされます。  
-    　'never' を選択するとミュートは行われません。'minimize' や 'deactive' では、それぞれアプリケーションが最小化したとき、非アクティブになったときにミュートされます。  
-    　ミュートされるのは WaveSoundBuffer で再生される物 ( KAGの場合は BGM に 'Wave' を使っている場合と、効果音 ) だけで、MIDI や CDDA 再生はミュートされません。  
-* -wsmutevol (DirectSound ミュート音量)  
-    　-wsmute (DirectSound ミュート) でのミュート時の音量の設定です。  
-    　設定可能な値は 整数で、% 単位で指定します。  
-    　「0%」を指定すると完全に無音となり、「50%」を指定すると半分の音量(約-6dB)となります。  
-* -wsforcecnv (DirectSound 強制フォーマット変換)  
-    　DirectSoundに再生させるPCMデータを、指定の形式に強制的に変換するかどうかの設定です。  
-    　設定可能な値は 'none' (変換しない), 'i16' (16bit整数に変換) , 'i16m' (16bit整数モノラルに変換) のいずれかで、このオプションを指定しないと 'none' が指定されたものと見なされます。  
-    　設定を変更すると再生時の障害が改善する場合があります。'i16m' を選択すると -wsexpandquad オプション ( DirectSound 強制4ch再生 ) の設定は無視されます。  
-* -wsuse3d (DirectSound 3D制御)  
-    　DirectSoundで3D制御を行うかどうかの設定です。  
-    　設定可能な値は 'no' (しない), 'yes' (する) のいずれかで、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    　'yes' を選択すると、サウンドの 3D制御が有効になり、WaveSoundBuffer.posX, WaveSoundBuffer.posY, WaveSoundBuffer.posZ プロパティが有効になります (これらのプロパティは現バージョンでは既に実装されていますが、サポート外です)。  
-    　また、多くの環境では、'yes' を選択すると、DirectSound3D により、ステレオやモノラルのサウンドが、サラウンドスピーカーに拡張されて再生されるようになります (たとえば、フロントのスピーカーでしか再生されなかったサウンドが、5.1ch環境の全てのスピーカーで再生されるようになります)。  
-    　'yes' を選択すると -wsexpandquad オプション ( DirectSound 強制4ch再生 ) の設定は無視されます。
-* -wsexpandquad (DirectSound 強制4ch再生)  
-    　DirectSoundでステレオやモノラルのサウンドを再生する場合に、強制的にリアスピーカーを含む4chで再生させるかどうかの設定です。  
-    　設定可能な値は 'no' (しない), 'yes' (する) のいずれかで、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    　'yes'を設定すると、ステレオやモノラルのサウンドがフロントスピーカーでしか再生されない環境でも、フロントスピーカーとリアスピーカーの両方でサウンドを再生させることができます。  
-* -wsfreq (DirectSound プライマリバッファ周波数)  
-    　DirectSoundのプライマリバッファの再生周波数の設定です。  
-    　設定可能な値は 正の自然数で周波数を Hz 単位で表し、このオプションを指定しないと '44100' が指定されたものと見なされます。  
-    　とくに WDM 系サウンドドライバを用いる環境 (Windows2000, XP以降 など) では、設定を変更しても再生状態に変化がない場合もあります。  
-* -wsbits (DirectSound プライマリバッファビット数)  
-    　DirectSoundのプライマリバッファの再生ビット数の設定です。  
-    　設定可能な値は 'i8' (8bit整数), 'i16' (16bit整数), 'i24' (24bit整数), 'i32' (32bit整数), 'f32' (32bit浮動小数点数) で、このオプションを指定しないと 'i16' が指定されたものと見なされます。
-    　とくに WDM 系サウンドドライバを用いる環境 (Windows2000, XP以降 など) では、設定を変更しても再生状態に変化がない場合もあります。  
-* -wscontrolpri (DirectSound プライマリバッファ再生制御)  
-    　DirectSoundのプライマリバッファに対して再生/停止の制御を行うかどうかの設定です。  
-    　設定可能な値は 'yes' (行う), 'no' (行わない) のいずれかで、このオプションを指定しないと 'yes' が指定されたものと見なされます。  
-    　まれに設定を変えると音飛びや音切れが改善される環境があるようです。  
-* -wspritry (DirectSound プライマリバッファ設定試行レベル)  
-    　DirectSoundプライマリバッファのフォーマットを指定する際にどれほど多くの設定を試すかの設定です。  
-    　設定可能な値は '0' 縲鰀 '2' (レベル0 縲鰀 レベル2), 'all' (すべて) のいずれかで、このオプションを指定しないと 'all' が指定されたものと見なされます。  
-    　レベル 0 を指定すると、ステレオ 16bit整数のフォーマットの設定を試行します。  
-    　レベル 1 を指定すると レベル 0 を試行する前に、システムのスピーカー設定に従ったチャンネル数、16bit整数でのフォーマットの設定を試行します。  
-    　レベル 2 を指定すると レベル 1 を試行する前に、「DirectSound プライマリバッファビット数」で指定されたビット数、システムのスピーカー設定に従ったチャンネル数、WAVEFORMATEX 構造体によるフォーマットの設定を試行します。  
-    　「すべて」を指定すると レベル 2 を試行する前に、レベル 2 と同様の設定で WAVEFORMATEXTENSIBLE 構造体によるフォーマットの指定を試行します。  
+Items in the list below marked as "Can be changed dynamically" are those that can be modified using the [System.setArgument]() method. Other options cannot be changed dynamically.
 
-## グラフィック関連のオプション
-* -gclim (画像キャッシュ制限)  
-    　画像キャッシュに使用するメモリの最大値の設定です。  
-    　設定可能な値は 'auto' (自動) または整数の値で、整数の値を指定する場合は画像キャッシュに使用するメモリを MB 単位で指定します。このオプションを指定しないと 'auto' が指定されたものと見なされます。  
-    　吉里吉里はいったん読み込んだ画像を素早くアクセスできるように画像をキャッシュする機構を持っています。  それに使用するメモリの制限値を指定します。  
-    　'auto' を指定すると、コンピュータに実装されている物理メモリの量によって自動的に値が決定されます。  
-    　'0' を指定するとキャッシュは行いません。  
-    　吉里吉里実行中にスワップが頻繁に発生するようであれば、この値を小さく指定するか、'0' を指定すると改善される可能性があります。  
-* -fsbpp (フルスクリーン時のカラーモード)  
-    　フルスクリーン時のカラーモードの設定です。  
-    　設定可能な値は 'nochange' (変えない), '16' (16bitカラー), '24' (24bitカラー), '32' (32bitカラー) のいずれかで、このオプションを指定しないと 'nochange' が指定されたものと見なされます。  
-    　'nochange' を指定すると、非フルスクリーン時のカラーモードと同じカラーモードになります。  
-    　このオプションは動的に変更することが可能ですが、値が反映されるのは次回フルスクリーンにしようとしたときです。  
-* -fsres (フルスクリーン時の画面解像度)  
-    　フルスクリーン時の画面解像度の設定です。  
-    　設定可能な値は 'auto' (自動), 'proportional' (縦横比が同じ解像度) , 'nearest' (最も近い解像度) , 'nochange' (解像度を変えない) のいずれかで、このオプションを指定しないと 'auto' が指定されたものと見なされます。  
-    　'auto' を選択すると、最も適している画面解像度を自動的に選択して使用します。この場合は、縦横比が同じ解像度のうち、プログラム内で指定されている解像度にフィットする解像度があればそれを選択しますが、そのような解像度がない場合は解像度を変えずにエンジン側で拡大表示をします。この設定の場合は、-fszoom (フルスクリーン時のエンジンによる拡大表示) オプションに 'no' (しない) が指定されていても、常に 'outer' (モニタ内にフィットさせる) であるとみなされます。  
-    　'proportional' を選択すると、画面の縦横比が非フルスクリーン時と同じ解像度のうち、プログラム内で指定されている解像度と同じかそれよりも大きく、もっとも近い解像度が選択されます。  
-    　'nearest' を選択すると、プログラム内で指定されている解像度と同じかそれよりも大きく、最も近い解像度が選択されますが、非フルスクリーン時と同じ縦横比の解像度が選択される保証はありません。ブラウン管モニタや、画面のアスペクト比を保ったままでの拡大表示に対応している液晶モニタなどでは、この設定が適している場合があります。  
-    　'nochange' を選択すると、非フルスクリーン時の解像度のまま、解像度を変更しなくなります。  
-    　このオプションは動的に変更することが可能ですが、値が反映されるのは次回フルスクリーンにしようとしたときです。  
-* -fszoom (フルスクリーン時のエンジンによる拡大表示)  
-    　フルスクリーン時に、エンジンによる画面の拡大をどのように行うかどうかを指定します。  
-    　設定可能な値は 'inner' (モニタ内にフィットさせる), 'outer' (モニタいっぱいに拡大する), 'no' (しない) のいずれかで、このオプションを指定しないと 'inner' が指定されたものと見なされます。  
-    　'inner' を選択すると、必要であれば、エンジンによる拡大を行います。必要な場合とは、画面解像度がプログラム内で指定された解像度と異なる場合です (もし画面解像度がプログラム内で指定された解像度よりも低い場合は縮小処理になります)。この際、プログラム内で指定されている解像度の縦横比を維持した状態での拡大を行いますが、モニタの縦横比とこの縦横比が異なる場合、上下、または左右に隙間ができる可能性があります。この隙間は常に真っ黒な状態で表示されます。  
-    　'outer' を指定すると、'inner' を指定したときと同じく、必要であればエンジンによる拡大を行います。しかし、'inner' と違い、モニタの縦横比とプログラム内で指定されている縦横比が異なる場合、上下や左右の隙間ができないようにめいいっぱいまで拡大を行います。このため、隙間はできませんが、モニタ外に画面がはみ出す可能性があります。この設定では、たとえば 16:10 のモニタに 16:9 のコンテンツを表示する際などに、隙間をださずに、めいいっぱいまで拡大させて表示することが可能になります。もちろんこれにより、左右にはみ出す領域が発生しますので、このような表示を想定したコンテンツを制作するのならば、はみ出す部分には重要な UI や文字を表示しない、といった対策が必要になります。  
-    　'no' を選択すると、必要であっても、エンジンによる拡大は行いません。この場合は、画面解像度がプログラム内で指定された解像度と異なっていても、エンジン側による拡大は行われません (その結果、画面中央に画像が小さく表示される可能性があります)。  
-    　モニタの本来の解像度とグラフィックカードの出力する信号の解像度が異なる場合、液晶モニタなどではモニタ側で拡大表示を行う場合がありますが、モニタ側で拡大処理をした上で、さらにエンジン側でも拡大表示を行うと二重に拡大が行われることになり、画像が汚くなる場合がありますので注意してください (-fsres の「自動」オプションは、このような二重の拡大表示を防ぐ組み合わせを自動的に選択します)。  
-    　このオプションは動的に変更することが可能ですが、値が反映されるのは次回フルスクリーンにしようとしたときです。  
-* -gsplit (画像演算の分割処理)  
-    　画像演算を細かく分割して行うかどうかの設定です。  
-    　設定可能な値は 'yes' (行う), 'int' (インターレース分割), 'bidi' (双方向分割), 'no' (行わない) のいずれかで、このオプションを指定しないと 'yes' が指定されたものと見なされます。  
-    　吉里吉里は CPU のメモリキャッシュを有効的に使用するために、画像を描画するときに細かい領域に分割しながら演算を行います。環境によってはこれが画面のちらつきにつながるようです。そのような環境では 'no' を指定することによりちらつきを抑えることができる可能性がありますが、描画のパフォーマンスが低下する可能性もあります。ダブルバッファリングを有効にした場合は、分割処理を行わないことの意味が薄いため、分割処理を行う設定にすることをお勧めします。  
-    　'int' を指定すると画像の演算の単位を一つおきに処理しますが、画面更新時に縞模様が見える事があります。'bidi' を選択すると画像の演算の順番において、上→下、下→上 を繰り返すようになります ( 'yes' の場合はつねに上→下 )。  
-* -smoothzoom (拡大表示時のスムージング)  
-    　Window.setZoom などで表示内容の拡大表示を行う場合や、-fsres オプションで吉里吉里が画面の拡大(縮小)表示を行う場合に、スムージング(拡大時の補間)を行うかどうかの設定です (Layer.affineCopy 等での拡大縮小とは関係ありません )。  
-    　設定可能な値は 'no' (行わない), 'yes' (行う) のいずれかで、このオプションを指定しないと 'yes' が指定されたものと見なされます。  
-    　スムージングを行うと、画像がなめらかになりますが、若干ぼけた感じになります。スムージングを行わないと、画像はシャープになりますが、ギザギザが目立つようになります。  
-    　環境によっては、スムージングを行わない方がパフォーマンスが低下する可能性があります。また、スムージングが効かない環境がある可能性があります。  
-    　サードパーティー製の描画デバイス ( Window.drawDevice プロパティで設定するデバイス ) によってはこのオプションの影響を受けない物もあるかもしれません。  
-    　このオプションは動的に変更することが可能ですが、すぐに値が反映される保証はありません。  
-* -aamethod (アンチエイリアス文字描画方式)  
-    　アンチエイリアス文字描画方法の設定です。  
-    　設定可能な値は 'auto' (自動), 'res4' (リサンプリング4×4), 'res8' (リサンプリング8×8), 'api' (Windows API) のいずれかで、このオプションを指定しないと 'auto' が指定されたものと見なされます。
-    　'auto' の場合は現バージョンでは 'api' を自動的に選択します。  
-    　'res4' または 'res8' では、数倍の大きさ (4×4 または 8×8) で文字を描画し、それを縮小することでアンチエイリアスを実現します。res4 の方が res8 よりも高速ですが、精度は低くなります。  
-    　'api' では GetGlyphOutline API を用いてアンチエイリアス文字を描画しますが、いろいろと不都合の多い API のようで環境によっては正常に描画できない可能性があります。  
-* -jpegdec (JPEG画像デコード精度)  
-    　JPEG画像のデコード(展開)の精度の設定です。  
-    　設定可能な値は 'high' (高い), 'normal' (標準), 'low' (低い) のいずれかで、このオプションを指定しないと 'normal' が指定されたものと見なされます。  
-    　'high' を指定するとデコードは低速になりますが、画質は高くなります。'low' を指定するとデコードは高速になりますが画質は低くなります。しかし、見た目ではほとんど違いはありません。  
-* -drawthread (描画スレッド数)  
-    　描画処理時に、使用するスレッドの数の設定です。  
-    　設定可能な値は任意の数値もしくは'auto' (自動)のいずれかで、このオプションを指定しないと '1'が指定されたものと見なされます。  
-    　'auto'を指定すると、OSの認識するプロセッサ数と同数のスレッドが自動的に割り当てられます。  
-    　描画スレッドを複数設定することで、マルチコア環境での描画パフォーマンスを向上させられる可能性がありますが、逆にパフォーマンスが低下する場合もあります。  
-    　描画面積が大きい処理、Affine系の高負荷な処理、演算の重いレイヤ合成処理などに適用することで、良好な結果を得られる可能性があります。  
-    　マルチスレッドを使用するように設定しても、描画処理の負荷が軽くマルチスレッド化の効果が得られないとシステムが判断した場合は、マルチスレッドで実行されない場合があります。  
-* -bitmapallocator (ビットマップメモリ確保方式 Ver 1.1 以降)  
-    　ビットマップ用のメモリをどのようにして確保するかを指定します。  
-    　設定可能な値は 'globalalloc' (GlobalAllocで確保), 'separateheap' (分割ヒープを使用), 'malloc' (mallocを使用)のいずれかで、このオプションを指定しないと 'globalalloc' が指定されたものと見なされます。  
-    　separateheap を使用することでメモリのフラグメンテーションを軽減し、メモリ不足エラーの問題を回避できる可能性があります。  
-* -bitmapheapsize (初期分割ヒープサイズ Ver 1.1 以降)  
-    　ビットマップメモリ確保方式で分割ヒープを使用を選んだ場合の初期サイズを指定します。  
-    　設定可能な値は 'auto' (自動(推奨)), '0' (自動的に拡大), '64' (64MB), '128' (128MB), '256' (256MB), '512' (512MB), '1024' (1024MB), '2048' (2048MB)のいずれかで、このオプションを指定しないと 'auto' が指定されたものと見なされます。  
-    　通常 auto で問題ありませんが、初期値を調整することでメモリのフラグメンテーションを軽減し、メモリ不足エラーの問題を回避できる可能性があります。  
+## Startup Options
+The following options are available to call and use specific functions of Kirikiri.
+* __-userconf (Launch end-user configuration tool)__
+    Launches the end-user configuration tool built into the core.
+* __-about (Display copyright information dialog box)__
+    Displays the "Version, Copyright, and Environment Information" dialog box.
+* __-sel (Display "Select Folder/Archive" dialog box)__
+    Displays the "Select Folder/Archive" dialog box. Data such as data.xp3 will not be automatically detected.
+    If you specify a folder as a command line parameter (without a leading hyphen), you can open the "Select Folder/Archive" dialog box with that folder selected by default.
+* __-printdatapath (Output data storage location)__
+    Outputs the setting of the data storage location (-datapath option) and a newline to standard output, then exits. This option is intended for use by external applications that manage save data in cooperation with the Kirikiri core.
+    Special strings such as $(exepath) in the data storage location will be output in their replaced state.
+    Since the Kirikiri core is a GUI application, nothing will be displayed if you simply launch the Kirikiri executable from a command prompt with the -printdatapath option. Use pipes or redirection to capture the output.
+* __-startup (Specify startup script)__
+    Specifies the filename of the script to be executed first.
+    If not specified, startup.tjs is executed.
 
-## CPU 機能関連のオプション  
-以下のオプションはすべて設定可能な値は 'yes' (使用可能であれば使用する), 'no' (使用可能であっても使用しない), 'force' (強制的に使用する) のいずれかで、オプションを指定しないと 'yes' が指定されたものと見なされます。    
-CPU の認識トラブルが起こった場合に 'no' に設定するとその機能を用いません。    
-'force' は、その CPU 機能を検出しなくても強制的に使用するようになりますが、CPU にその機能がついていない場合はもちろん正常に動作しません。    
-吉里吉里本体には -cpummx -cpucmov -cpusse -cpuemmx のオプションのみが影響を与えます。OggVorbis デコーダ (wuvorbis.dll) には -cpusse と -cpummx と -cpu3dn のオプションが影響を与えます。そのほかの(サードパーティーの)プラグインの中にも CPU 機能の設定の影響を受けるものがあるかも知れません。  
+## General System Options
+* __-datapath (Data storage location)__
+    Sets the location (folder) where Kirikiri saves various data.
+    The value is specified as a string.
+    You can simply specify the folder name as a full path, but usually, the following special strings are embedded and used.
+    * __$(exepath)__
+        Replaced with System.exePath (the folder name where the Kirikiri core is located).
+    * __$(appdatapath)__
+        Replaced with System.appDataPath (the user's home folder). This folder is usually a hidden folder.
+    * __$(personalpath)__
+        Replaced with System.personalPath (the My Documents folder).
+    * __$(vistapath)__
+        Replaced with $(appdatapath) if the OS is Vista or later, and $(exepath) if it is earlier than Vista.
+    * __$(savedgamespath)__
+        Replaced with System.savedGamesPath (the folder for game save data). (Ver 1.1.0 or later)
+
+    The default is "$(exepath)\savedata". This setting is suitable for a distribution format where the program is compressed/archived in zip etc. without using an installer, and the user extracts it and executes the program immediately.
+    However, with this default setting, if the program is placed under Program Files and launched by a "Limited User" in Windows XP etc. who does not have permission to write under Program Files, an error may occur because files cannot be written.
+    If you use a name like "$(appdatapath)\ApplicationName" or "$(personalpath)\ApplicationName", files will be written to a folder for each user, making such problems less likely to occur, but users might be confused because the save data location becomes less obvious.
+
+    Kirikiri will attempt to create the data storage location specified by this option if it does not exist at startup. Even if creation fails, processing continues without exiting, so please handle errors within the user's script (by catching exceptions such as data being unable to be saved).
+
+    Settings made in "Engine Configuration" are created inside the folder specified by this data storage location. In addition, various logs are also created in this folder by default.
+* __-contfreq (Processing weight)__
+    Sets whether to reduce CPU usage by calling processes such as transitions at a specified cycle while applying weights.
+    Possible values are *'0' (no weight)* or a positive integer; if this option is not specified, '0' is assumed. If a positive integer is specified, you can specify the cycle in Hz.
+    This option affects transitions and Continuous handlers registered with System.addContinuousHandler.
+    If set to '0', the CPU is fully utilized during transitions etc.
+    If a numerical value is specified, processing will occur at 그 cycle, and the remaining time will let the CPU rest. This can reduce the impact on other applications, CPU temperature rise, and computer power consumption. The lower the value specified, the higher this effect. However, specifying a low value may cause transitions etc. to become less smooth.
+    If waiting for vertical synchronization is performed with the waitvsync option, the Continuous handler will be driven according to the timing of the vertical synchronization, and the setting of the contfreq option will be ignored.
+    This option can be changed dynamically, but the change will take effect the next time the transition or Continuous handler operation is interrupted.
+* __-memusage (Memory usage)__
+    Sets the memory usage.
+    Possible values are *'normal'* or *'low'*; if this option is not specified, 'normal' is assumed.
+    Selecting "low" will save more memory than selecting "normal". However, selecting "low" will decrease performance because various internal cache mechanisms in Kirikiri are restricted and the size of TJS2 hash tables is limited. Also, if "low" is selected, "Graphics - Image Cache Limit" is forced to the "Do not cache" setting.
+* __-timerprec (Timer precision)__
+    Sets the level of timer precision.
+    Possible values are *'normal'*, *'higher'*, or *'high'*; if this option is not specified, 'normal' is assumed.
+    Specifying 'higher' or 'high' increases the overall precision of timers (including most things related to time and timing), which may resolve sluggishness in character display in KAG or MIDI playback, but may also decrease performance.
+* __-laxtimer (Timer event capacity limit)__
+    Sets whether to limit the number of timer events that can be stored in the system at once (maximum generation capacity) to avoid situations where too many timer events accumulate and cannot be processed.
+    Possible values are *'no'* or *'yes'*; if this option is not specified, 'no' is assumed.
+    On very slow computers or in situations where very heavy processes are driven by timers, Kirikiri may become unresponsive to operations because it cannot keep up with events generated by the timer. If 'yes' is specified for this option, the maximum generation capacity of timer events stored in the system is always fixed to 1 (the state where the capacity property of the Timer class is 1). This can suppress the generation of timer events that the system cannot process, but normally, timer precision and accuracy are lost.
+* __-lowpri (Low priority)__
+    Sets whether to lower the priority during transitions etc.
+    Possible values are *'no'* or *'yes'*; if this option is not specified, 'no' is assumed.
+    If set to 'yes', the execution priority of the main thread will be lowered when the main thread of Kirikiri uses the CPU continuously, such as during transitions. This may improve symptoms such as sound skipping during transitions or other applications becoming difficult to operate during transitions.
+* __-exceptionexe (Editor to launch on exception)__
+    Specifies the editor to launch when an exception occurs.
+* __-exceptionarg (Editor options on exception)__
+    Specifies the options to be specified when launching the editor when an exception occurs.
+    You can simply specify arguments, but usually, the following special strings are embedded and used.
+    * __%filepath%__
+        Replaced with the file path of the script where the exception occurred.
+    * __%line%__
+        Replaced with the line number where the exception occurred.
+
+
+## Input-related Options
+* __-wheel (Mouse wheel rotation detection method)__
+    Sets how to detect mouse wheel rotation.
+    Possible values are *'no' (do not use)*, *'dinput' (DirectInput)*, or *'message' (window message)*; if this option is not specified, 'dinput' is assumed.
+    Selecting "do not use" makes the mouse wheel unusable. Selecting "DirectInput" uses DirectInput. Selecting "window message" detects mouse wheel rotation without using DirectInput. Changing the setting may improve mouse wheel-related bugs.
+* __-joypad (Gamepad availability)__
+    Sets whether to use a gamepad (joystick).
+    Possible values are *'no' (do not use)* or *'dinput' (use)*; if this option is not specified, 'dinput' is assumed.
+    Selecting "do not use" makes the pad unusable. Set to "do not use" if the pad cannot be detected correctly or if the pad cannot be used normally.
+* __-paddelay (Pad key repeat delay)__
+    Specifies the time until key repeat for the gamepad (joystick) in milliseconds.
+    Possible values are a positive number or -1; specifying -1 disables key repeat. If this option is not specified, 500 is assumed.
+    This option can be changed dynamically.
+* __-padinterval (Pad key repeat interval)__
+    Specifies the interval for key repeat for the pad (joystick) in milliseconds. The smaller the value, the faster the repeat.
+    Possible values are a positive number; if this option is not specified, 30 is assumed.
+    This option can be changed dynamically.
+* __-controlime (IME state control)__
+    Sets whether to perform state control (such as enabling or disabling) of the IME (conversion input software for Japanese etc.).
+    Possible values are *'yes' (perform)* or *'no' (do not perform)*; if this option is not specified, 'yes' is assumed.
+    Selecting "do not perform" may avoid bugs such as "unable to input languages like Japanese that are input through IME."
+
+## Sound-related Options
+* -wsdecpri (PCM decode thread priority)
+    The priority of the thread that performs PCM decoding.
+    Possible values are '0' (Idle (lowest)), '1' (Low), '2' (Below Normal), '3' (Normal), '4' (Above Normal), '5' (High). If this option is not specified, '1' is assumed.
+    Increasing the priority may reduce sound skipping during playback of PCM (uncompressed wave, OggVorbis, etc.), but transitions may become less smooth or responsiveness to operations may worsen.
+    By the way, what is specified here is the priority for decoding during normal times; in emergencies (when the remaining data in the buffer becomes short), the necessary priority is automatically secured.
+* -wssoft (DirectSound software mixing)
+    Sets whether to perform mixing using software in DirectSound.
+    Possible values are 'yes' (perform software mixing) or 'no' (do not perform software mixing). If this option is not specified, 'yes' is assumed.
+    In the standard setting, mixing is performed in software, so the CPU load is higher, but the possibility of avoiding hardware-specific bugs is higher. If there is no problem even if 'no' is specified for this option (even if mixing is performed in hardware), the CPU load may be lowered. With USB audio or inexpensive sound cards, mixing may always be performed by the CPU, so changing this option may have no effect.
+* -wsrecreate (DirectSound secondary buffer recreation)
+    Sets whether to always recreate the secondary buffer in DirectSound.
+    Possible values are 'yes' (always recreate) or 'no' (recreate as needed). If this option is not specified, 'no' is assumed.
+    In Kirikiri, a secondary buffer once created is reused if conditions such as the number of channels and sampling frequency are the same, but if 'yes' is specified, it will always be recreated without being reused. Depending on the environment, instabilities such as sound skipping or cutting at the start of playback may be improved.
+* -wsl1len (DirectSound secondary buffer length)
+    Sets the length of the DirectSound secondary buffer.
+    Possible values are integers, specified in milliseconds. A minimum of 250ms is required. If this option is not specified, 1000 is assumed.
+    What is specified here is the length of the buffer actually secured as the DirectSound secondary buffer.
+    Generally, taking it longer makes playback stable but consumes memory.
+* -wsl2len (DirectSound secondary auxiliary buffer length)
+    Sets the length of the secondary buffer for the DirectSound secondary buffer.
+    Possible values are integers, specified in milliseconds. A minimum of 250ms is required. If this option is not specified, 1000 is assumed.
+    Kirikiri creates an auxiliary buffer for each DirectSound secondary buffer, accumulates decoded data in this auxiliary buffer once, and then transfers it to the secondary buffer. The buffer length specified here is the length of that auxiliary buffer.
+    Normally, decoding and accumulation in the auxiliary buffer are performed in a low-priority thread, but transfer from the auxiliary buffer to the secondary buffer is performed in a high-priority thread.
+    Generally, taking it longer makes playback stable but consumes memory. Also, if control that adds changes to the decoding process is performed, the delay until it is actually sounded becomes longer.
+* -wsmute (DirectSound mute)
+    Sets whether to mute (lower the volume) when the application is inactive or minimized in DirectSound.
+    Possible values are 'never' (do not mute), 'minimize' (when minimized), or 'deactive' (when inactive). If this option is not specified, 'never' is assumed.
+    If 'never' is selected, muting is not performed. With 'minimize' or 'deactive', it is muted when the application is minimized or becomes inactive, respectively.
+    Only things played with WaveSoundBuffer (in the case of KAG, when 'Wave' is used for BGM, and sound effects) are muted; MIDI and CDDA playback are not muted.
+* -wsmutevol (DirectSound mute volume)
+    Sets the volume when muted with -wsmute (DirectSound mute).
+    Possible values are integers, specified in %.
+    Specifying "0%" results in complete silence, and specifying "50%" results in half volume (approx. -6dB).
+* -wsforcecnv (DirectSound forced format conversion)
+    Sets whether to forcibly convert PCM data to be played by DirectSound into a specified format.
+    Possible values are 'none' (do not convert), 'i16' (convert to 16-bit integer), or 'i16m' (convert to 16-bit integer mono). If this option is not specified, 'none' is assumed.
+    Changing the setting may improve playback failures. If 'i16m' is selected, the -wsexpandquad option (DirectSound forced 4ch playback) setting is ignored.
+* -wsuse3d (DirectSound 3D control)
+    Sets whether to perform 3D control in DirectSound.
+    Possible values are 'no' (do not), 'yes' (do). If this option is not specified, 'no' is assumed.
+    If 'yes' is selected, 3D control of sound is enabled, and WaveSoundBuffer.posX, WaveSoundBuffer.posY, and WaveSoundBuffer.posZ properties become effective (these properties are already implemented in the current version but are unsupported).
+    Also, in many environments, if 'yes' is selected, stereo or mono sound will be expanded and played on surround speakers by DirectSound3D (for example, sound that was only played on the front speakers will be played on all speakers in a 5.1ch environment).
+    If 'yes' is selected, the -wsexpandquad option (DirectSound forced 4ch playback) setting is ignored.
+* -wsexpandquad (DirectSound forced 4ch playback)
+    Sets whether to forcibly play stereo or mono sound on 4 channels including rear speakers when playing in DirectSound.
+    Possible values are 'no' (do not), 'yes' (do). If this option is not specified, 'no' is assumed.
+    If 'yes' is set, sound can be played on both front and rear speakers even in environments where stereo or mono sound is only played on front speakers.
+* -wsfreq (DirectSound primary buffer frequency)
+    Sets the playback frequency of the DirectSound primary buffer.
+    Possible values are positive natural numbers representing the frequency in Hz. If this option is not specified, '44100' is assumed.
+    Especially in environments using WDM-based sound drivers (Windows 2000, XP or later, etc.), there may be no change in the playback state even if the setting is changed.
+* -wsbits (DirectSound primary buffer bit depth)
+    Sets the playback bit depth of the DirectSound primary buffer.
+    Possible values are 'i8' (8-bit integer), 'i16' (16-bit integer), 'i24' (24-bit integer), 'i32' (32-bit integer), 'f32' (32-bit floating point). If this option is not specified, 'i16' is assumed.
+    Especially in environments using WDM-based sound drivers (Windows 2000, XP or later, etc.), there may be no change in the playback state even if the setting is changed.
+* -wscontrolpri (DirectSound primary buffer playback control)
+    Sets whether to perform play/stop control for the DirectSound primary buffer.
+    Possible values are 'yes' (perform), 'no' (do not perform). If this option is not specified, 'yes' is assumed.
+    In rare cases, there seem to be environments where sound skipping or cutting is improved by changing the setting.
+* -wspritry (DirectSound primary buffer setting trial level)
+    Sets how many settings to try when specifying the format of the DirectSound primary buffer.
+    Possible values are '0' - '2' (Level 0 - Level 2) or 'all' (all). If this option is not specified, 'all' is assumed.
+    If Level 0 is specified, it tries to set the format to stereo 16-bit integer.
+    If Level 1 is specified, before trying Level 0, it tries to set the format to 16-bit integer with the number of channels according to the system speaker settings.
+    If Level 2 is specified, before trying Level 1, it tries to set the format using the WAVEFORMATEX structure with the bit depth specified in "DirectSound primary buffer bit depth" and the number of channels according to the system speaker settings.
+    If "all" is specified, before trying Level 2, it tries to specify the format using the WAVEFORMATEXTENSIBLE structure with the same settings as Level 2.
+
+## Graphic-related Options
+* -gclim (Image cache limit)
+    Sets the maximum value of memory used for image cache.
+    Possible values are 'auto' (automatic) or an integer value; if an integer value is specified, specify the memory used for image cache in MB. If this option is not specified, 'auto' is assumed.
+    Kirikiri has a mechanism to cache images so that images once read can be accessed quickly. Specify the limit value of memory used for that.
+    If 'auto' is specified, the value is automatically determined by the amount of physical memory installed in the computer.
+    If '0' is specified, caching is not performed.
+    If swapping occurs frequently during Kirikiri execution, specifying a small value or '0' may improve it.
+* -fsbpp (Color mode in fullscreen)
+    Sets the color mode in fullscreen.
+    Possible values are 'nochange' (do not change), '16' (16-bit color), '24' (24-bit color), or '32' (32-bit color). If this option is not specified, 'nochange' is assumed.
+    If 'nochange' is specified, it will be the same color mode as the non-fullscreen color mode.
+    This option can be changed dynamically, but the value will take effect the next time you try to go fullscreen.
+* -fsres (Screen resolution in fullscreen)
+    Sets the screen resolution in fullscreen.
+    Possible values are 'auto' (automatic), 'proportional' (resolution with the same aspect ratio), 'nearest' (closest resolution), or 'nochange' (do not change resolution). If this option is not specified, 'auto' is assumed.
+    If 'auto' is selected, the most suitable screen resolution is automatically selected and used. In this case, among resolutions with the same aspect ratio, if there is a resolution that fits the resolution specified in the program, it is selected, but if there is no such resolution, the engine performs enlarged display without changing the resolution. In the case of this setting, even if 'no' (do not) is specified for the -fszoom (enlarged display by engine in fullscreen) option, it is always considered to be 'outer' (fit within the monitor).
+    If 'proportional' is selected, among resolutions with the same aspect ratio as the non-fullscreen state, the resolution that is the same as or larger than the resolution specified in the program and closest to it is selected.
+    If 'nearest' is selected, the resolution that is the same as or larger than the resolution specified in the program and closest to it is selected, but there is no guarantee that a resolution with the same aspect ratio as the non-fullscreen state will be selected. This setting may be suitable for CRT monitors or LCD monitors that support enlarged display while maintaining the screen aspect ratio.
+    If 'nochange' is selected, the resolution will not be changed, remaining at the non-fullscreen resolution.
+    This option can be changed dynamically, but the value will take effect the next time you try to go fullscreen.
+* -fszoom (Enlarged display by engine in fullscreen)
+    Specifies how the engine performs screen enlargement in fullscreen.
+    Possible values are 'inner' (fit within the monitor), 'outer' (expand to fill the monitor), or 'no' (do not). If this option is not specified, 'inner' is assumed.
+    If 'inner' is selected, enlargement by the engine is performed if necessary. "If necessary" means when the screen resolution is different from the resolution specified in the program (if the screen resolution is lower than the resolution specified in the program, it will be a reduction process). At this time, enlargement is performed while maintaining the aspect ratio of the resolution specified in the program, but if the aspect ratio of the monitor and this aspect ratio are different, gaps may appear at the top and bottom or left and right. These gaps are always displayed in a completely black state.
+    If 'outer' is specified, as with 'inner', enlargement by the engine is performed if necessary. However, unlike 'inner', if the aspect ratio of the monitor and the aspect ratio specified in the program are different, enlargement is performed to the maximum extent so that gaps do not appear at the top and bottom or left and right. For this reason, gaps do not appear, but the screen may protrude outside the monitor. With this setting, for example, when displaying 16:9 content on a 16:10 monitor, it becomes possible to display it enlarged to the maximum extent without showing gaps. Of course, this results in areas protruding to the left and right, so if you are producing content assuming such a display, measures such as not displaying important UI or characters in the protruding parts are necessary.
+    If 'no' is selected, enlargement by the engine is not performed even if necessary. In this case, even if the screen resolution is different from the resolution specified in the program, enlargement by the engine side is not performed (as a result, the image may be displayed small in the center of the screen).
+    If the native resolution of the monitor and the resolution of the signal output by the graphics card are different, LCD monitors etc. may perform enlarged display on the monitor side, but if enlarged display is performed on the engine side after enlargement processing on the monitor side, enlargement will be performed twice, and the image may become dirty, so please be careful (the "auto" option of -fsres automatically selects a combination that prevents such double enlarged display).
+    This option can be changed dynamically, but the value will take effect the next time you try to go fullscreen.
+* -gsplit (Split processing of image operations)
+    Sets whether to perform image operations by splitting them finely.
+    Possible values are 'yes' (perform), 'int' (interlace split), 'bidi' (bidirectional split), or 'no' (do not perform). If this option is not specified, 'yes' is assumed.
+    Kirikiri performs operations while splitting into fine areas when drawing images in order to use the CPU's memory cache effectively. Depending on the environment, this seems to lead to screen flickering. In such environments, specifying 'no' may suppress flickering, but drawing performance may also decrease. If double buffering is enabled, the meaning of not performing split processing is thin, so it is recommended to set it to perform split processing.
+    If 'int' is specified, image operation units are processed every other one, but stripes may be visible when the screen is updated. If 'bidi' is selected, the order of image operations repeats top-to-bottom and bottom-to-top (in the case of 'yes', it is always top-to-bottom).
+* -smoothzoom (Smoothing during enlarged display)
+    Sets whether to perform smoothing (interpolation during enlargement) when performing enlarged display of display content with Window.setZoom etc., or when Kirikiri performs enlarged (reduced) display of the screen with the -fsres option (this is unrelated to enlargement/reduction with Layer.affineCopy etc.).
+    Possible values are 'no' (do not perform) or 'yes' (perform). If this option is not specified, 'yes' is assumed.
+    Performing smoothing makes the image smooth but slightly blurred. Not performing smoothing makes the image sharp but jaggedness becomes noticeable.
+    Depending on the environment, performance may decrease if smoothing is not performed. Also, there may be environments where smoothing does not work.
+    Some third-party drawing devices (devices set with the Window.drawDevice property) may not be affected by this option.
+    This option can be changed dynamically, but there is no guarantee that the value will take effect immediately.
+* -aamethod (Anti-aliased character drawing method)
+    Sets the anti-aliased character drawing method.
+    Possible values are 'auto' (automatic), 'res4' (resampling 4x4), 'res8' (resampling 8x8), or 'api' (Windows API). If this option is not specified, 'auto' is assumed.
+    In the case of 'auto', 'api' is automatically selected in the current version.
+    With 'res4' or 'res8', characters are drawn at several times the size (4x4 or 8x8) and then reduced to achieve anti-aliasing. res4 is faster than res8, but precision is lower.
+    With 'api', anti-aliased characters are drawn using the GetGlyphOutline API, but it seems to be an API with many inconveniences and may not draw correctly depending on the environment.
+* -jpegdec (JPEG image decoding precision)
+    Sets the precision of decoding (expansion) of JPEG images.
+    Possible values are 'high' (high), 'normal' (standard), or 'low' (low). If this option is not specified, 'normal' is assumed.
+    Specifying 'high' makes decoding slow but image quality high. Specifying 'low' makes decoding fast but image quality low. However, there is almost no difference in appearance.
+* -drawthread (Number of drawing threads)
+    Sets the number of threads to use during drawing processing.
+    Possible values are any numerical value or 'auto' (automatic). If this option is not specified, '1' is assumed.
+    If 'auto' is specified, the same number of threads as the number of processors recognized by the OS is automatically assigned.
+    By setting multiple drawing threads, drawing performance in a multi-core environment may be improved, but conversely, performance may also decrease.
+    Good results may be obtained by applying it to processes with large drawing areas, high-load Affine-related processes, layer synthesis processes with heavy operations, etc.
+    Even if set to use multi-threading, if the system determines that the drawing processing load is light and the effect of multi-threading cannot be obtained, it may not be executed in multi-threading.
+* -bitmapallocator (Bitmap memory allocation method Ver 1.1 or later)
+    Specifies how to allocate memory for bitmaps.
+    Possible values are 'globalalloc' (allocate with GlobalAlloc), 'separateheap' (use separate heap), or 'malloc' (use malloc). If this option is not specified, 'globalalloc' is assumed.
+    Using separateheap may reduce memory fragmentation and avoid memory shortage error problems.
+* -bitmapheapsize (Initial separate heap size Ver 1.1 or later)
+    Specifies the initial size when "use separate heap" is selected for the bitmap memory allocation method.
+    Possible values are 'auto' (automatic (recommended)), '0' (expand automatically), '64' (64MB), '128' (128MB), '256' (256MB), '512' (512MB), '1024' (1024MB), or '2048' (2048MB). If this option is not specified, 'auto' is assumed.
+    Normally auto is fine, but adjusting the initial value may reduce memory fragmentation and avoid memory shortage error problems.
+
+## CPU Feature-related Options
+For all the following options, possible values are 'yes' (use if available), 'no' (do not use even if available), or 'force' (force use). If the option is not specified, 'yes' is assumed.
+If a CPU recognition problem occurs, setting it to 'no' will disable that feature.
+'force' will force the use of that CPU feature even if it is not detected, but of course, it will not work correctly if the CPU does not have that feature.
+Only the -cpummx -cpucmov -cpusse -cpuemmx options affect the Kirikiri core itself. The OggVorbis decoder (wuvorbis.dll) is affected by the -cpusse, -cpummx, and -cpu3dn options. Other (third-party) plugins may also be affected by CPU feature settings.
 * __-cpummx (MMX)__
 * __-cpu3dn (3DNow!)__
 * __-cpusse (SSE)__
@@ -280,45 +280,44 @@ CPU の認識トラブルが起こった場合に 'no' に設定するとその�
 * __-cpufma3 (FMA3)__
 * __-cpuaes (AES)__
 
-## デバッグ関連のオプション
-* -debug (デバッグモード)  
-    　吉里吉里をデバッグモード ( → デバッグ ) で動作させるかどうかの設定です。  
-    　設定可能な値は 'no' (無効), 'yes' (有効)のいずれかで、このオプションを指定しないと 'no' が指定されたものと見なされます。  
-    　有効にすると、吉里吉里はデバッグモードで動作し、いくつかのデバッグ支援機能が有効になりますが、通常のモードよりも実行速度は低下します。  
-* -forcelog (ファイルへのログ)  
-    　コンソールのログをファイルに出力するかどうかの設定です。  
-    　設定可能な値は 'no' (出力しない), 'yes' (既存のファイルに追加して出力する), 'clear' (既存のファイルをクリアしてから出力する) のいずれかで、このオプションを指定しないと 'no' が指定されたものと見なされます。   
-* -logerror (エラー時のファイルへのログ)  
-    　エラー時にコンソールのログをファイルに出力するかどうかの設定です。  
-    　設定可能な値は 'no' (出力しない), 'yes' (既存のファイルに追加して出力する), 'clear' (既存のファイルをクリアしてから出力する) のいずれかで、このオプションを指定しないと 'yes' が指定されたものと見なされます。   
+## Debug-related Options
+* -debug (Debug mode)
+    Sets whether to operate Kirikiri in debug mode ( -> Debug ).
+    Possible values are 'no' (disabled) or 'yes' (enabled). If this option is not specified, 'no' is assumed.
+    When enabled, Kirikiri operates in debug mode and several debug support functions are enabled, but execution speed is lower than in normal mode.
+* -forcelog (Log to file)
+    Sets whether to output console logs to a file.
+    Possible values are 'no' (do not output), 'yes' (append to existing file), or 'clear' (clear existing file before outputting). If this option is not specified, 'no' is assumed.
+* -logerror (Log to file on error)
+    Sets whether to output console logs to a file when an error occurs.
+    Possible values are 'no' (do not output), 'yes' (append to existing file), or 'clear' (clear existing file before outputting). If this option is not specified, 'yes' is assumed.
 
-## システム互換性関連のオプション
-* -arcdelim (アーカイブデリミタ)  
-    　アーカイブデリミタ (アーカイブストレージ名と、アーカイブ内ストレージ名の間を区切る文字) を指定します。  
-    　設定可能な値は '>' ('>'を使う), '#' ('#'を使う) のいずれかで、このオプションを指定しないと '>' が指定されたものと見なされます。  
-    　アーカイブデリミタは、吉里吉里２ 2.19 beta 14 で、従来の '#' から '>' に変更されました。  
-    　2.19 beta 14 未満で動作していたアプリケーションはこの変更のため動作しなくなる可能性がありますが、このオプションでデリミタを '#' に変更することで動作させることができます。  
-* -evalcontext (後置'!'演算子の動作)  
-    　TJS2の後置'!'演算子の動作を指定します。  
-    　設定可能な値は 'this' (this上で式を評価), 'global' (global上で式を評価) のいずれかで、このオプションを指定しないと 'this' が指定されたものと見なされます。  
-    　TJS2の後置'!'演算子は式をglobalコンテキスト上で実行していましたが、2.21 beta 9 より、this コンテキスト上で実行するようになりました。  
-    2.21 beta 9 未満を想定しているアプリケーションでは、この設定を「global上で式を評価」にしないと動作しない可能性があります。  
-* -holdalpha (Layer.holdAlpha プロパティのデフォルトの値)  
-    　Layer.holdAlpha プロパティのデフォルト値を指定します。  
-    　設定可能な値は 'false' (偽), 'true' (真) のいずれかで、このオプションを指定しないと 'false' が指定されたものと見なされます。  
-    　吉里吉里２ 2.23 beta 4 で、各種演算関数に指定していた hda (アルファチャンネルを保護するか) オプションがなくなり、代わりに Layer.holdAlpha プロパティが作られました。この時点では Layer.holdAlpha のデフォルト値は真でした。Layer.holdAlpha が真の場合は過去のアプリケーションの動作に影響を与えません。  
-    　吉里吉里２ 2.23 beta 5 で、このデフォルト値が偽になりました。吉里吉里２ 2.23 beta 5 未満を想定しているアプリケーションを動作させたい場合は、このオプションに「真」を指定しないと正常に動作しない可能性があります。  
-* -unaryaster (前置'\*'演算子の動作)  
-    　TJS2の前置'\*'演算子の動作を指定します。  
-    　設定可能な値は 'default' (2.25以降の動作), 'compat' (2.25未満の動作) のいずれかで、このオプションを指定しないと 'default' が指定されたものと見なされます。  
-    　TJS2の前置'\*'演算子は、プロパティオブジェクトそのものを、プロパティハンドラを介さずに取り出す演算子でしたが、2.25 beta 1 より、この機能を持つ演算子は前置の'&'となり、前置'*'演算子はプロパティオブジェクトのプロパティハンドラを動作させるための演算子となりました。2.25 beta 1 未満を想定しているアプリケーションでは、この設定を「2.25未満と互換」にしないと正常に動作しない可能性があります。  
-* -wsvolfactor (DirectSoundのボリュームカーブ)  
-    　設定可能な値は '3322' (2.31 2011/6/14以降の動作), '5000' (2.31 2011/6/14未満の動作) のいずれかで、このオプションを指定しないと '3322' が指定されたものと見なされます。  
-    　DirectSoundのボリュームカーブは、2.31 2011/6/14 より、より直感的なカーブになりました。  
-* __-readencoding (スクリプト読込み文字コード)__    
-    設定可能な値は 'Shift_JIS' (吉里吉里2互換の動作), 'UTF-8' (吉里吉里Zの動作) のいずれかで、このオプションを指定しないと 'UTF-8' が指定されたものと見なされます。    
-    スクリプトを読み込むのに使用する文字コードです。  
-* __-ignoretouch (タッチイベントの無効化 1.3.0以降)__    
-    設定可能な値は 'false' (偽), 'true' (真) のいずれかで、このオプションを指定しないと 'false' が指定されたものと見なされます。    
-    'true'を指定するとタッチイベントを無効化して、代わりにマウスイベントを発生させます。  
-
+## System Compatibility-related Options
+* -arcdelim (Archive delimiter)
+    Specifies the archive delimiter (the character that separates the archive storage name and the in-archive storage name).
+    Possible values are '>' (use '>') or '#' (use '#'). If this option is not specified, '>' is assumed.
+    The archive delimiter was changed from the traditional '#' to '>' in Kirikiri 2 2.19 beta 14.
+    Applications that operated in versions lower than 2.19 beta 14 may stop working due to this change, but they can be made to work by changing the delimiter to '#' with this option.
+* -evalcontext (Behavior of postfix '!' operator)
+    Specifies the behavior of the TJS2 postfix '!' operator.
+    Possible values are 'this' (evaluate expression on this) or 'global' (evaluate expression on global). If this option is not specified, 'this' is assumed.
+    The TJS2 postfix '!' operator used to execute expressions on the global context, but from 2.21 beta 9, it executes on the this context.
+    Applications assuming versions lower than 2.21 beta 9 may not work unless this setting is set to "evaluate expression on global."
+* -holdalpha (Default value of Layer.holdAlpha property)
+    Specifies the default value of the Layer.holdAlpha property.
+    Possible values are 'false' (false) or 'true' (true). If this option is not specified, 'false' is assumed.
+    In Kirikiri 2 2.23 beta 4, the hda (whether to protect the alpha channel) option specified in various operation functions was removed, and the Layer.holdAlpha property was created instead. At this point, the default value of Layer.holdAlpha was true. If Layer.holdAlpha is true, it does not affect the behavior of past applications.
+    In Kirikiri 2 2.23 beta 5, this default value became false. If you want to run an application assuming a version lower than Kirikiri 2 2.23 beta 5, it may not work correctly unless "true" is specified for this option.
+* -unaryaster (Behavior of prefix '*' operator)
+    Specifies the behavior of the TJS2 prefix '*' operator.
+    Possible values are 'default' (behavior of 2.25 or later) or 'compat' (behavior before 2.25). If this option is not specified, 'default' is assumed.
+    The TJS2 prefix '*' operator was an operator to retrieve the property object itself without going through the property handler, but from 2.25 beta 1, the operator with this function became the prefix '&', and the prefix '*' operator became an operator to operate the property handler of the property object. Applications assuming versions lower than 2.25 beta 1 may not work correctly unless this setting is set to "compatible with versions lower than 2.25."
+* -wsvolfactor (DirectSound volume curve)
+    Possible values are '3322' (behavior of 2.31 2011/6/14 or later) or '5000' (behavior before 2.31 2011/6/14). If this option is not specified, '3322' is assumed.
+    The DirectSound volume curve became a more intuitive curve from 2.31 2011/6/14.
+* __-readencoding (Script reading character code)__
+    Possible values are 'Shift_JIS' (Kirikiri 2 compatible behavior) or 'UTF-8' (Kirikiri Z behavior). If this option is not specified, 'UTF-8' is assumed.
+    The character code used to read scripts.
+* __-ignoretouch (Disable touch events Ver 1.3.0 or later)__
+    Possible values are 'false' (false) or 'true' (true). If this option is not specified, 'false' is assumed.
+    If 'true' is specified, touch events are disabled and mouse events are generated instead.

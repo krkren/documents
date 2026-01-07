@@ -1,12 +1,12 @@
 ---
 layout: default
-title: リリーサー
+title: Releaser
 ---
 
-吉里吉里Zには現在のところリリーサーはありません。  
-吉里吉里2に添付されているリリーサーを使用してください。  
-本体へアーカイブを結合する方式は現在吉里吉里Zではサポートされていません。
+KiriKiri Z currently does not have a releaser.
+Please use the releaser included with KiriKiri 2.
+The method of merging archives into the executable is currently not supported in KiriKiri Z.
 
-## アイコンの差し替え
-アイコンの差し替えは吉里吉里2のリリーサーではなく、汎用のリソースエディタで行ってください。  
-ツールは"フリーソフト アイコン変更 実行ファイル"などで検索して探してください。
+## Replacing the Icon
+To replace the icon, please use a general-purpose resource editor instead of the KiriKiri 2 releaser.
+Search for tools using terms like "freeware icon changer executable".

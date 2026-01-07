@@ -1,11 +1,11 @@
 ---
 layout: default
-title: 動画の再生方法
+title: How to Play Videos
 ---
 
-吉里吉里Z TJS2 のサンプルスクリプト。
-mixer(VMR9)モードで動画を再生する。
-最前面で動画を再生する時はこの方法が標準の方法。
+KiriKiriZ TJS2 sample script.
+Plays a video in mixer (VMR9) mode.
+This is the standard method for playing videos in the foreground.
 
 {% highlight javascript %}
 class MainWindow extends Window {
@@ -26,5 +26,3 @@ class MainWindow extends Window {
 var win = new MainWindow(640,480);
 win.visible = true;
 {% endhighlight %}
-
-

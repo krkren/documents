@@ -1,27 +1,27 @@
 ---
 layout: default
-title: ツールチップの表示方法
+title: How to Display Tooltips
 ---
 
-ツールチップとは、マウスオーバーで表示される簡単なヘルプのことです。  
-具体的には Layer.hint で表示されるものです。  
-吉里吉里内ではヒントと呼ばれています。  
-吉里吉里2 では OS の機能(厳密にはVCL)によって表示されていましたが、吉里吉里Zでは任意レイヤーを表示させるように仕様が変更されています。  
-なお、マウスオーバーはタッチパネルを持ったタブレットデバイスなどでは表示することが出来ないため、別の方法で表示できるようにする必要があります。  
+A tooltip is a simple help message displayed on mouseover.
+Specifically, it is what is displayed via Layer.hint.
+In KiriKiri, it is referred to as a "hint".
+In KiriKiri 2, it was displayed using OS functions (strictly speaking, VCL), but in KiriKiri Z, the specification has changed to allow displaying an arbitrary layer.
+Note that since mouseover cannot be triggered on tablet devices with touch panels, it is necessary to provide an alternative method for display.
 
-## 仕様
-* ヒントを設定し、カーソルが一定時間停止しヒント表示タイミングになると Window.onHintChanged(text:string,x:int,y:int,isshow:bool) イベントが発生する。  
-* カーソル停止時間は、property:Window.hintDelay で指定可能。  
-デフォルトは 500 (msec) 。  
-従来は固定値だったものを変更可能にした。  
-* ヒントを描画するレイヤーには property:Layer.ignoreHintSensing を有効にして、ヒント表示を無視させる。
-* isshow が false でイベントが来たら非表示にする。
+## Specifications
+* When a hint is set and the cursor stops for a certain period, the Window.onHintChanged(text:string,x:int,y:int,isshow:bool) event occurs at the hint display timing.
+* The cursor stop time can be specified with property:Window.hintDelay.
+Default is 500 (msec).
+This was previously a fixed value but has been made configurable.
+* Enable property:Layer.ignoreHintSensing on the layer used to draw the hint to make it ignore hint sensing.
+* Hide the hint when the event is received with isshow set to false.
 
-これで onHintChanged で isshow が true の時、ヒントを最前面レイヤーに描画し、ヒントレイヤーはマウスメッセージは無視されるように設定すれば従来と同じような表示が出来る。  
+By drawing the hint on the frontmost layer when isshow is true in onHintChanged, and configuring the hint layer to ignore mouse messages, you can achieve a display similar to the legacy behavior.
 
-従来は、標準の味気ない表示のみだったが、レイヤーに任意に描画可能としたことで、文字のみではなく画像などを用いて表示も可能となった。
+Previously, only the standard plain display was available, but by allowing arbitrary drawing on a layer, it is now possible to display hints using images and other elements instead of just text.
 
-## サンプル
+## Sample
 {% highlight javascript linenos %}
 class MainWindow extends Window {
 	var base;
@@ -90,5 +90,5 @@ var win = new MainWindow(640,480);
 win.visible = true;
 {% endhighlight %}
 
-[GitHub にも同じサンプルが上げてある。
+[The same sample is also available on GitHub.
 ](https://github.com/krkrz/krkrz/blob/master/script/Sample/tooltip/startup.tjs)

@@ -1,71 +1,71 @@
 ---
 layout: default
-title: 吉里吉里2と比較して、吉里吉里Zが進んでいる機能
+title: Features where KiriKiri Z is advanced compared to KiriKiri 2
 ---
 
-初期リリースバージョンに比べて吉里吉里Zは進化を続けていて、吉里吉里2と比較していくつかのメリットが発生しています。
+KiriKiri Z has continued to evolve compared to its initial release version, offering several advantages over KiriKiri 2.
 
-## 吉里吉里Zのメリット
+## Advantages of KiriKiri Z
 
-### MPEG4 AVC(H.264) 動画の再生  
-吉里吉里ZではH.264の再生が可能になっています。  
-ライセンスの問題があるので、合計12分を超える場合はライセンスフィーが発生しますが、高画質/高圧縮率の動画を組み込めます。  
-  
-### 64bitサポート  
-吉里吉里Zには64bit版もあり、メモリを大量に使う場合に効果を発揮します。  
-フルHDサイズのゲームでは32bitの場合、しばらくプレイしているとメモリ不足で停止してしまうことがありますが、64bitであればほぼそのようなことを気にせず開発できます。
-  
-### メモリ利用効率の改善  
-吉里吉里2ではHDサイズ辺りでもしばらくプレイしていると「ビットマップ用メモリを確保できません/……」と言ったエラーが発生することがありますが、吉里吉里Zではメモリの断片化をなるべく防ぐように強化されているため、このエラーが発生しづらくなっています。  
-さらに、どうしても改善しない場合は64bit版を使うこともできます。
-  
-### より高画質な拡大縮小機能  
-吉里吉里2ではバイキュービックまで一部サポートされていましたが、吉里吉里Zでは他に Lanczos2、Lanczos3、Spline16、Spline36、面積平均(縮小のみ)、Gaussian、BlackmanSinc がサポートされています。  
-また、バイキュービックも吉里吉里2に比べ大幅に高速化されており、吉里吉里2では速度的に高速バイリニアより高画質な拡大縮小は使用しづらかったですが、吉里吉里Zでは拡大縮小処理が全面的に書き換えられ、高速がされ、実用的な速度で動作します。  
-画質は[画像拡大縮小フィルタ](https://krkrz.github.io/documents/TJS2/imagescaling.html)を参照してください。
-  
-### SSE2/AVX2のサポート  
-吉里吉里2では、画像処理にはMMXまでのサポートでしたが、吉里吉里ZではSSE2、一部はAVX2までサポートしており、最近のCPUではより高速な動作が可能です。
-  
-### コンパイラの進化による最適化の恩恵  
-吉里吉里2は18年前のコンパイラでコンパイルされているのに対して、吉里吉里Zは順次新しいコンパイラでコンパイルされているため、全般的に高速に動作します。  
-特にJPEGの読み込みなど一部の機能については劇的に速くなっています。  
-  
-### opus 音声のサポート  
-吉里吉里Zではkropus.dllプラグインによってopus音声がサポートされています。  
-opusはogg vorbisと比較して、より高音質、高圧縮で低レイテンシといったメリットがあり、大きな容量を占める音声データの圧縮に寄与します。  
-厳密にいえばkropus.dllは吉里吉里2でも動くと思われますが、正式サポートしているわけではありません。  
-  
-### FreeType による文字のレンダリング  
-FreeType を使用した文字のレンダリングを選択することが可能になり、文字が綺麗に描画可能です。  
-(体感できない場合もあります)  
-  
-### 画像ファイルの保存機能  
-吉里吉里2では、Bitmap以外の画像を保存できませんでしたが、吉里吉里ZではPNG/JPEG/TLGと言った読み込み可能な画像ファイル形式でLayer画像を保存可能です。  
-  
-### 画像の非同期読み込み  
-吉里吉里Zでは画像データをバックグラウンドで読み込むことが可能になり、画像データを先読みすることで従来よりストレスなくプレイ可能なシステムを作ることができます。
-  
-### 高繊細ディスプレイ対応  
-吉里吉里2は高繊細ディスプレイに対応しておらず、高繊細ディスプレイで起動すると意図したよりも大きなサイズで起動してしまったりしますが、吉里吉里Zでは常に指定したサイズで起動されます。
-  
-### タッチパネル/マルチタッチ対応  
-吉里吉里Zではタッチパネルに対応し、マルチタッチも処理できます。  
-タッチパネルに対応したシステムを作ることでタブレット等でもストレスなくプレイ可能な環境を作ることができます。
-  
-### 不具合の修正  
-吉里吉里2は開発が停止しており、新OSで使用する場合にいくつかの機能で不具合が発生します。  
-またXP3が2GBを超えるとエラーになるなどの問題も残ったままです。
-吉里吉里Zは継続的に開発されており、新OSでも問題なく動くように修正が加えられ続けています。  
-また、吉里吉里2の時にあった不具合も修正され続けています。
-  
-### 多言語対応  
-吉里吉里Zは、多言語対応されており、非日本語環境でも動作します。  
-またエラーメッセージなどは日本語/英語/中国語がサポートされています。
-  
-### theora動画の再生  
-Ogg Theora動画も再生できます。  
-WMVがあるので、あまり活躍の場面はないですが、使いたい場合は使えます。  
-  
-### 他の便利な機能  
-TJS2スクリプトを直接書いている場合、9patch機能やArray/Dictionayのpack/unpack、Array/DictionayのloadStructメソッドによるセーブデータによるスクリプト実行回避、ImageFunctionとBitmapクラスによる柔軟なスクリプトの記述、Rectクラスの追加、マウスのX1/X2(進む/戻る)ボタンサポート、UTF-8のサポート等細かい部分で便利な機能が追加されています。
+### MPEG4 AVC (H.264) Video Playback
+KiriKiri Z enables H.264 playback.
+Due to licensing issues, a license fee is required if the total video length exceeds 12 minutes, but it allows you to incorporate high-quality, high-compression ratio videos.
+
+### 64-bit Support
+KiriKiri Z also has a 64-bit version, which is effective when using large amounts of memory.
+In Full HD games using 32-bit, the application may stop due to insufficient memory after playing for a while, but with 64-bit, you can develop without worrying about such issues.
+
+### Improved Memory Utilization Efficiency
+In KiriKiri 2, errors such as "Cannot allocate memory for bitmap/..." could occur even at HD sizes after playing for a while. KiriKiri Z has been enhanced to prevent memory fragmentation as much as possible, making this error less likely to occur.
+Furthermore, if the situation does not improve, you can also use the 64-bit version.
+
+### Higher Quality Scaling Functions
+KiriKiri 2 had partial support up to Bicubic, but KiriKiri Z additionally supports Lanczos2, Lanczos3, Spline16, Spline36, Area Average (downscaling only), Gaussian, and BlackmanSinc.
+Also, Bicubic has been significantly accelerated compared to KiriKiri 2. In KiriKiri 2, it was difficult to use scaling higher than fast Bilinear due to speed constraints, but in KiriKiri Z, the scaling process has been completely rewritten and optimized to operate at practical speeds.
+For image quality, please refer to [Image Scaling Filters](https://krkrz.github.io/documents/TJS2/imagescaling.html).
+
+### SSE2/AVX2 Support
+In KiriKiri 2, image processing was supported up to MMX, but KiriKiri Z supports SSE2 and partially AVX2, allowing for faster operation on modern CPUs.
+
+### Optimization Benefits from Compiler Evolution
+While KiriKiri 2 was compiled with a compiler from 18 years ago, KiriKiri Z is sequentially compiled with newer compilers, resulting in generally faster operation.
+In particular, some functions such as JPEG loading have become dramatically faster.
+
+### Opus Audio Support
+KiriKiri Z supports Opus audio via the kropus.dll plugin.
+Compared to Ogg Vorbis, Opus offers advantages such as higher sound quality, higher compression, and lower latency, contributing to the compression of audio data that occupies a large capacity.
+Strictly speaking, kropus.dll likely works on KiriKiri 2 as well, but it is not officially supported.
+
+### Text Rendering via FreeType
+It is now possible to select text rendering using FreeType, allowing for beautiful character drawing.
+(In some cases, the difference may not be noticeable.)
+
+### Image File Saving Functionality
+In KiriKiri 2, images could not be saved in formats other than Bitmap, but in KiriKiri Z, Layer images can be saved in readable image file formats such as PNG/JPEG/TLG.
+
+### Asynchronous Image Loading
+KiriKiri Z allows image data to be loaded in the background. By pre-loading image data, you can create a system that allows for more stress-free play than before.
+
+### High-DPI Display Support
+KiriKiri 2 does not support high-DPI displays, and when launched on a high-DPI display, it may start at a larger size than intended. KiriKiri Z always launches at the specified size.
+
+### Touch Panel / Multi-touch Support
+KiriKiri Z supports touch panels and can process multi-touch input.
+By creating a system compatible with touch panels, you can create an environment where players can play without stress on tablets and similar devices.
+
+### Bug Fixes
+Development of KiriKiri 2 has stopped, and several functions malfunction when used on new operating systems.
+Additionally, issues such as errors occurring when XP3 files exceed 2GB remain.
+KiriKiri Z is under continuous development, and fixes are constantly being added to ensure it runs without problems on new OS versions.
+Furthermore, bugs that existed in KiriKiri 2 are also being continuously fixed.
+
+### Multi-language Support
+KiriKiri Z is multi-language compatible and operates in non-Japanese environments.
+Additionally, error messages and other texts support Japanese, English, and Chinese.
+
+### Theora Video Playback
+Ogg Theora videos can also be played.
+Since WMV is available, there are not many occasions for it to be used, but it can be used if desired.
+
+### Other Useful Features
+When writing TJS2 scripts directly, various convenient features have been added in detail, such as 9patch functionality, Array/Dictionary pack/unpack, avoiding script execution in save data via the Array/Dictionary loadStruct method, flexible script writing using ImageFunction and the Bitmap class, addition of the Rect class, support for mouse X1/X2 (Forward/Back) buttons, and UTF-8 support.

@@ -1,1 +1,1 @@
-# 本体(exe)に関する情報を入れるフォルダ
+# Folder for information regarding the main executable (exe)

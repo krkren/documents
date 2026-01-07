@@ -1,15 +1,15 @@
 ---
 layout: default
-title: エンジン設定ツール
+title: Engine Configuration Tool
 ---
 
-## 吉里吉里Z では、独立したエンジン設定ツールはなくなった。  
-本体に -userconf を指定して起動すると、ユーザー向けエンジン設定ツールとして起動する。  
-インストーラー等で本体の引数に -userconf を追加したショートカット等をエンジン設定ツールとして登録すれば従来と同じように扱える。
+## In KiriKiri Z, the independent engine configuration tool has been removed.  
+Starting the executable with the -userconf argument will launch it as the user-facing engine configuration tool.  
+By creating a shortcut with the -userconf argument in an installer or similar, it can be handled the same way as before.
 
-## 開発者用エンジン設定ツールは提供されない。
-ユーザー設定で表示させたくない項目を、option\_desc\_ja.json で "user":false とするか、項目そのものを削除してしまえば表示されない。  
-設定がうまく表示されない場合、ログに JSON の文法違反が出ている可能性があるので、コンソールで起動してログを見てみると良い。  
-これらの変更を反映するには、コアのビルドかリソースを変更できるツールで変更することが必要になる。  
+## A developer-specific engine configuration tool is not provided.
+Items you do not want to display in the user settings can be hidden by setting "user":false in option_desc_ja.json or by deleting the item itself.  
+If settings do not display correctly, there may be a JSON syntax error in the log. It is recommended to launch via console and check the log.  
+To apply these changes, you must either rebuild the core or use a tool capable of modifying resources.  
 
-[エンジン設定の追加/編集](../core/engine_setting.html)も参照のこと。
+See also [Adding/Editing Engine Settings](../core/engine_setting.html).

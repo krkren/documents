@@ -1,1 +1,1 @@
-# 各種ツール情報などを入れるフォルダ
+# Folder for various tool information, etc.

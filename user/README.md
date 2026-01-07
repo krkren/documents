@@ -1,2 +1,2 @@
-# ユーザー向け情報などを入れるフォルダ
-ユーザーに説明するための開発者情報でもある
+# Folder for user information, etc.
+Also contains developer information for explaining to users.

@@ -1,31 +1,31 @@
 ---
 layout: default
-title: 吉里吉里Z 情報
+title: KiriKiri Z Information
 ---
 
-他ドキュメントで書ききれていない情報を扱っているページです。
+This page covers information not fully detailed in other documents.
 
-* [ライトユーザー/初心者向け 情報](./casual_user.html)
-* [吉里吉里2と比較して、吉里吉里Zが進んでいる機能](./new_features.html)
+* [Information for Casual Users/Beginners](./casual_user.html)
+* [Advanced Features in KiriKiri Z compared to KiriKiri 2](./new_features.html)
 
-## ユーザー向け情報
-* [エンジン設定ツール](./user/engine_setting.html)
+## User Information
+* [Engine Configuration Tool](./user/engine_setting.html)
 
-## TJS2 で利用する本体機能
-* [ツールチップの表示方法](./TJS2/tooltip.html)
-* [非同期画像読み込み](./TJS2/asyncimageload.html)
-* [吉里吉里2と吉里吉里Zの判別方法](./TJS2/check_2_z.html)
-* [動画の再生方法](./TJS2/playmovie.html)
-* [吉里吉里Zで削除された機能](./TJS2/deleted.html)
-* [サポートするファイルフォーマット](./TJS2/fileformat.html)
-* [型指定構文](./TJS2/type_specified.html)
-* [画像拡大縮小フィルタ](./TJS2/imagescaling.html)
+## Core Features used in TJS2
+* [How to display tooltips](./TJS2/tooltip.html)
+* [Asynchronous Image Loading](./TJS2/asyncimageload.html)
+* [How to distinguish between KiriKiri 2 and KiriKiri Z](./TJS2/check_2_z.html)
+* [How to play movies](./TJS2/playmovie.html)
+* [Features removed in KiriKiri Z](./TJS2/deleted.html)
+* [Supported File Formats](./TJS2/fileformat.html)
+* [Type Specification Syntax](./TJS2/type_specified.html)
+* [Image Scaling Filters](./TJS2/imagescaling.html)
 
-## ツール
+## Tools
 * [Releaser](./tools/releaser.html)
 
-## 本体(exe)変更者向け情報
-* [エンジン設定の追加/編集](./core/engine_setting.html)
-* [コマンドラインオプション](./core/commandline.html)
-* [吉里吉里Z固有のクラッキング対策](./core/anti_cracking.html)
-* [メモリ不足対策](./core/low_memory.html)
+## Information for Core (exe) Developers
+* [Adding/Editing Engine Settings](./core/engine_setting.html)
+* [Command Line Options](./core/commandline.html)
+* [Anti-cracking measures specific to KiriKiri Z](./core/anti_cracking.html)
+* [Countermeasures for low memory](./core/low_memory.html)

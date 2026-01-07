@@ -1,24 +1,23 @@
 ---
 layout: default
-title: 画像拡大縮小フィルタ
+title: Image Scaling Filters
 ---
 
-吉里吉里Zでは画像の拡大縮小方法に2で使われていたニアレストネイバーとバイリニア、バイキュービック以外にも色々なフィルタが追加された。
+In Kirikiri Z, various filters have been added for image scaling in addition to the nearest neighbor, bilinear, and bicubic methods used in version 2.
 
-## 拡大縮小フィルタ
-* ニアレストネイバー
-* バイリニア
-* バイキュービック
+## Scaling Filters
+* Nearest Neighbor
+* Bilinear
+* Bicubic
 * Lanczos2
 * Lanczos3
 * Spline16
 * Spline36
-* 面積平均(縮小のみ)
+* Area Average (Downscaling only)
 * Gaussian
 * BlackmanSinc
 
-吉里吉里2 では、バイキュービックはかなり遅くて使いづらかったが、現在の吉里吉里Zでは高速化され、どのフィルタでも使用できる程度の速度になっている。
+In Kirikiri 2, bicubic was quite slow and difficult to use, but in the current Kirikiri Z, it has been optimized and is fast enough to be used with any filter.
 
-※ 参考画像 : 別サイトの画像
-![参考画像](http://kaede-software.com/krkrz/resample_20140404.png "実行結果サンプル")
-
+* Reference Image: Image from another site
+![Reference Image](http://kaede-software.com/krkrz/resample_20140404.png "Execution Result Sample")

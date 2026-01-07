@@ -1,27 +1,27 @@
-# 吉里吉里Z 情報
-吉里吉里Zに関する情報を気軽に集積しやすくするためのリポジトリ。 将来整理して[公式ページ](http://krkrz.github.io/) に移動しても良い。
-マークダウンでさっくりと書けるのでリポジトリの方がまとめやすい。  
-**何かドキュメント書いたらプルリクエストしてください。**
+# KiriKiri Z Information
+A repository to easily collect information about KiriKiri Z. This may be organized and moved to the [official page](http://krkrz.github.io/) in the future.
+Since it can be written quickly in Markdown, a repository is easier to manage.
+**Please submit a pull request if you write any documentation.**
 
-## ユーザー向け情報
-* [エンジン設定ツール](./user/engine_setting.md)
+## Information for Users
+* [Engine Configuration Tool](./user/engine_setting.md)
 
-## TJS2 で利用する本体機能
-* [ツールチップの表示方法](./TJS2/tooltip.md)
-* [非同期画像読み込み](./TJS2/asyncimageload.md)
-* [吉里吉里2と吉里吉里Zの判別方法](./TJS2/check_2_z.md)
-* [動画の再生方法](./TJS2/playmovie.md)
-* [吉里吉里Zで削除された機能](./TJS2/deleted.md)
-* [サポートするファイルフォーマット](./TJS2/fileformat.md)
-* [型指定構文](./TJS2/type_specified.md)
+## Core Features for TJS2
+* [How to display tooltips](./TJS2/tooltip.md)
+* [Asynchronous image loading](./TJS2/asyncimageload.md)
+* [How to distinguish between KiriKiri 2 and KiriKiri Z](./TJS2/check_2_z.md)
+* [How to play movies](./TJS2/playmovie.md)
+* [Features removed in KiriKiri Z](./TJS2/deleted.md)
+* [Supported file formats](./TJS2/fileformat.md)
+* [Type specification syntax](./TJS2/type_specified.md)
 
-## ツール
+## Tools
 * [Releaser](./tools/releaser.md)
 
-## 本体(exe)変更者向け情報
-* [エンジン設定の追加/編集](./core/engine_setting.md)
-* [吉里吉里Z固有のクラッキング対策](./core/anti_cracking.md)
-* [メモリ不足対策](./core/low_memory.md)
+## Information for Core (exe) Developers
+* [Adding/Editing engine settings](./core/engine_setting.md)
+* [Anti-cracking measures specific to KiriKiri Z](./core/anti_cracking.md)
+* [Countermeasures for low memory](./core/low_memory.md)
 
 
-## [このドキュメントのライセンス](LICENSE.md)
+## [License for this document](LICENSE.md)

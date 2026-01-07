@@ -1,23 +1,22 @@
 ---
 layout: default
-title: サポートするファイルフォーマット
+title: Supported File Formats
 ---
 
-## 画像
-* TLG5/6(独自形式)
+## Images
+* TLG5/6 (Proprietary format)
 * PNG
 * JPEG
 * JPEG XR
 * BMP
 
-## 音声
+## Audio
 * WAVE
-* Ogg vorbis(wuvorbis.dll)
-* opus(kropus.dll)
+* Ogg vorbis (wuvorbis.dll)
+* opus (kropus.dll)
 
-## 動画
+## Video
 * MPEG I
 * WMV
-* H.264(Windows7以降)
+* H.264 (Windows 7 or later)
 * Theora
-

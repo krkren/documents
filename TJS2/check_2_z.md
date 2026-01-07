@@ -1,15 +1,14 @@
 ---
 layout: default
-title: 吉里吉里2と吉里吉里Zの判別方法
+title: How to distinguish between KiriKiri 2 and KiriKiri Z
 ---
 
-## 静的に判定
-TJS2 のプリプロセッサで kirikiriz が 1 になるので、静的に切り換えるものはこれで切り換え可能。  
-ただし、バイトコードバイナリ化したものの場合、バイトコード化した段階でプリプロセッサに従いバイトコードが生成されるため、切り換えることが出来ない。
-テキストのスクリプトで格納している場合は何ら問題ない。
+## Static Determination
+In the TJS2 preprocessor, kirikiriz is set to 1, so static switching can be handled this way.
+However, in the case of bytecode binaries, the bytecode is generated according to the preprocessor at the time of compilation, so it cannot be switched.
+There is no problem if the script is stored as text.
 
-## 動的に判定
-System.versionInformation プロパティは吉里吉里2では "吉里吉里[きりきり] 2 実行コア～" となっているが、吉里吉里Z では "吉里吉里[きりきり] Z 実行コア～" となっているので、判別可能。  
-後、バージョン文字の変更点として System.versionString は、1.0.0.001 を返す。  
-吉里吉里Z になったことでバージョンがリセットされているので、2.X.X.XXX 等を期待している場合は注意が必要。
-
+## Dynamic Determination
+The System.versionInformation property is "KiriKiri [kirikiri] 2 Execution Core..." in KiriKiri 2, but "KiriKiri [kirikiri] Z Execution Core..." in KiriKiri Z, making it possible to distinguish them.
+Additionally, as a change in the version string, System.versionString returns 1.0.0.001.
+Since the version has been reset with KiriKiri Z, caution is needed if you are expecting 2.X.X.XXX or similar.
