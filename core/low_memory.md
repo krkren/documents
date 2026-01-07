@@ -1,42 +1,42 @@
-# メモリ不足対策
+# Countermeasures for Insufficient Memory
 
-「ビットマップ用メモリを確保できません/……」もしくは「Cannot allocate memory for Bitmap : ……」と言ったエラーが発生することがある。  
-大画面化等によって発生することが多くなっているようだ。  
-吉里吉里Zでは2に比べると発生しづらくなっているものの発生しないわけではない。  
-ただ、設定によって発生を減らせる。  
+Errors such as "Cannot allocate memory for Bitmap : ..." may occur.
+This seems to happen more frequently due to larger screen resolutions.
+While it is less likely to occur in KiriKiri Z compared to KiriKiri 2, it is not impossible.
+However, the occurrence can be reduced through settings.
 
-## 原因
-ゲームでこのエラーが発生するのは本当にメモリが足りないことよりも、メモリの断片化が原因であることの方が多い。  
-画像などの大きい領域を必要とするメモリ確保と小さなクラスや文字列などのメモリ確保が混在するとメモリの断片化が起きやすい。  
-メモリの断片化が進行すると大きなメモリを確保できなくなり、ビットマップ用メモリなどの大きい領域を確保しようとして失敗する。
+## Cause
+In games, this error is more often caused by memory fragmentation rather than an actual lack of memory.
+Fragmentation occurs easily when memory allocations for large areas (like images) are mixed with allocations for small classes or strings.
+As fragmentation progresses, large memory blocks cannot be allocated, leading to failures when trying to allocate large areas like bitmap memory.
 
-## 対策
-メモリ管理アルゴリズムの種類によっては断片化が起きづらいものもあるので、それを採用するのも一つの手で Windows Vista 以降は断片化が起きづらいアルゴリズムが採用され、断片化は低減されているようだ。  
-XP でも  [LFH](https://msdn.microsoft.com/ja-jp/library/windows/desktop/aa366750%28v=vs.85%29.aspx) を有効にすることで 同様の効果がある(吉里吉里ZはVista以降用となっているので常に有効)。  
-ただ、この機能が有効でも発生してしまうことがあるので、他にコンパクションの実行や画像用のメモリリージョンを分離すると言った対策がある。
+## Countermeasures
+Some memory management algorithms are less prone to fragmentation. Windows Vista and later use algorithms that reduce fragmentation.
+On XP, enabling LFH (Low Fragmentation Heap) had a similar effect (KiriKiri Z is for Vista and later, so it is always enabled).
+Even with this enabled, errors can still occur, so other measures include performing compaction or separating the memory region for images.
 
-### コンパクション
-コンパクションとはメモリの隣接している空き領域をつなげて、大きな連続した空き領域にすること。  
-メモリの確保/解放が何度も行われた状況ではある程度負荷が高くなるため、たまに実行する。  
-吉里吉里Zでは-ghcompactオプションを付ける(エンジン設定から指定可能)ことで、System.doCompact が呼ばれるタイミングでグローバルヒープのコンパクションが行われる。  
-少し負荷がかかる処理ではあるので、デフォルトは無効となっている。  
-対象とする下限CPUで有効にしてもストレスなく動くのであれば、デフォルト有効としてリリースして問題ない。
+### Compaction
+Compaction involves connecting adjacent free memory areas into a single large continuous free area.
+Since this can be resource-intensive when many allocations/deallocations have occurred, it should be executed occasionally.
+In KiriKiri Z, adding the -ghcompact option (specifiable in engine settings) enables global heap compaction whenever System.doCompact is called.
+This process adds some load, so it is disabled by default.
+If it runs smoothly on your target minimum CPU, it is fine to release with it enabled by default.
 
-### 分割ヒープ
-比較的大きな領域のみを確保するビットマップ用メモリと他と分離することで、断片化の進行を防ぐ。  
-エンジン設定から指定可能になっている。  
-デフォルトはプロセスヒープから確保するようになっていて、多くの場合これで問題ない。  
-テストして発生するようなら試してみて、軽減するのなら分割ヒープをデフォルト設定とした方が良い。
+### Split Heap
+This prevents fragmentation by separating bitmap memory (which allocates relatively large areas) from other allocations.
+This can be specified in the engine settings.
+By default, it allocates from the process heap, which is fine in most cases.
+If errors occur during testing, try this; if it helps, it may be better to set the split heap as the default.
 
-### GCの呼び出し
-スクリプトで、シーン切り替えの暗転時などに System.doCompact を呼ぶと少し効果があると思われる。
+### Calling GC
+Calling System.doCompact during scene transitions (such as during a fade to black) in the script is thought to be somewhat effective.
 
-### グラフィックキャッシュを使わない
-グラフィックキャッシュは使わないか、出来るだけ少ない容量にした方がメモリのフラグメンテーション抑止に効果がある。  
-上述の対策をしても効果が内容であれば、グラフィックキャッシュを使用しないようにすることも検討の余地がある。  
-グラフィックキャッシュを使わないと、特にスキップ時に顕著に重いと感じられるが、最近のCPUやSSDが積まれた環境ではそこまで気になるほどではないので、キャッシュなしにしてしまっても問題ないと思われる。
+### Not Using Graphic Cache
+Not using the graphic cache, or keeping its capacity as small as possible, is effective in preventing memory fragmentation.
+If the above measures do not work, it is worth considering disabling the graphic cache.
+Without the cache, the game may feel noticeably heavier, especially when skipping, but on modern environments with current CPUs and SSDs, it is not a major concern, so disabling the cache should be fine.
 
-### 64bit版を使う
-上記の対策全てを行っても効果がない場合は、もう究極的な対策である 64bit 版を使用することを検討した方が良い。  
-積まれているメモリをフル活用でき、メモリを大量に積んでいるのに発生すると言う不満も解消できる。  
-段々とどの環境でも 64bit が当たり前になってきているので、メモリ不足関係なく今後は 64bit も用意しておいた方が良いと思われる。
+### Using the 64-bit Version
+If all the above measures are ineffective, you should consider the ultimate solution: using the 64-bit version.
+This allows full utilization of installed memory and resolves complaints about errors occurring despite having plenty of RAM.
+Since 64-bit environments are becoming the standard, it is advisable to provide a 64-bit version regardless of memory issues.

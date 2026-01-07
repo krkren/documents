@@ -1,1 +1,1 @@
-# TJS2 を記述して実現できる機能などに関するドキュメントをこのフォルダに入れています。
+# This folder contains documentation regarding features that can be implemented using TJS2.

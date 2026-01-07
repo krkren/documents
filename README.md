@@ -1,32 +1,32 @@
-# 吉里吉里Z 情報
-吉里吉里Zに関する情報を気軽に集積しやすくするためのリポジトリ。  
-マークダウンでさっくりと書けるのでリポジトリの方がまとめやすい。  
-gh-pagesブランチにプッシュすると自動的にHTMLが生成され、 http://krkrz.github.io/documents/ からアクセスできる。
+# KiriKiri Z Information
+A repository to easily collect information about KiriKiri Z.
+Since it can be written quickly in Markdown, a repository is easier to organize.
+Pushing to the gh-pages branch automatically generates HTML, which can be accessed from http://krkren.github.io/documents/.
 
-**何かドキュメント書いたらgh-pagesブランチにプルリクエストしてください。**
+**If you write any documentation, please submit a pull request to the gh-pages branch.**
 
-master にも以前のドキュメント類がまだ残っているが、gh-pagesブランチがドキュメントの最新なので、そちらに追加編集してください。
+Previous documentation still remains in the master branch, but the gh-pages branch contains the latest documentation, so please add or edit there.
 
-# 以下、以前のドキュメントリンク
-## ユーザー向け情報
-* [エンジン設定ツール](./user/engine_setting.md)
+# Previous Documentation Links
+## Information for Users
+* [Engine Setting Tool](./user/engine_setting.md)
 
-## TJS2 で利用する本体機能
-* [ツールチップの表示方法](./TJS2/tooltip.md)
-* [非同期画像読み込み](./TJS2/asyncimageload.md)
-* [吉里吉里2と吉里吉里Zの判別方法](./TJS2/check_2_z.md)
-* [動画の再生方法](./TJS2/playmovie.md)
-* [吉里吉里Zで削除された機能](./TJS2/deleted.md)
-* [サポートするファイルフォーマット](./TJS2/fileformat.md)
-* [型指定構文](./TJS2/type_specified.md)
+## Core Functions Used in TJS2
+* [How to Display Tooltips](./TJS2/tooltip.md)
+* [Asynchronous Image Loading](./TJS2/asyncimageload.md)
+* [How to Distinguish Between KiriKiri 2 and KiriKiri Z](./TJS2/check_2_z.md)
+* [How to Play Movies](./TJS2/playmovie.md)
+* [Features Removed in KiriKiri Z](./TJS2/deleted.md)
+* [Supported File Formats](./TJS2/fileformat.md)
+* [Type Specification Syntax](./TJS2/type_specified.md)
 
-## ツール
+## Tools
 * [Releaser](./tools/releaser.md)
 
-## 本体(exe)変更者向け情報
-* [エンジン設定の追加/編集](./core/engine_setting.md)
-* [吉里吉里Z固有のクラッキング対策](./core/anti_cracking.md)
-* [メモリ不足対策](./core/low_memory.md)
+## Information for Core (exe) Developers
+* [Adding/Editing Engine Settings](./core/engine_setting.md)
+* [Anti-Cracking Measures Specific to KiriKiri Z](./core/anti_cracking.md)
+* [Out-of-Memory Countermeasures](./core/low_memory.md)
 
 
-## [このドキュメントのライセンス](LICENSE.md)
+## [License for this Document](LICENSE.md)

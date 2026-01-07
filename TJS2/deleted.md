@@ -1,32 +1,32 @@
-# 吉里吉里Zで削除された機能
-吉里吉里Z本体からは削除された機能でもプラグインなどを入れると使用できる。
+# Features removed in Kirikiri Z
+Features removed from the Kirikiri Z core can still be used by adding plugins.
 
-## KagParser クラス
-吉里吉里Zリポジトリに同梱されている KAGParser.dll をリンクすると利用可能。
+## KagParser Class
+Available by linking KAGParser.dll included in the Kirikiri Z repository.
 
-## Menu クラス
-吉里吉里Zリポジトリに同梱されている menu.dll をリンクすると利用可能。
+## Menu Class
+Available by linking menu.dll included in the Kirikiri Z repository.
 
-## Pad クラス
-吉里吉里Zリポジトリに同梱されている Krkr2Compat を読み込むと利用可能。
+## Pad Class
+Available by loading Krkr2Compat included in the Kirikiri Z repository.
 
-## コンソールウィンドウ(Debug.console)
-吉里吉里Zリポジトリに同梱されている Krkr2Compat を読み込むと利用可能。
+## Console Window (Debug.console)
+Available by loading Krkr2Compat included in the Kirikiri Z repository.
 
-## スクリプトエディタ
-吉里吉里Zリポジトリに同梱されている Krkr2Compat を読み込むと利用可能。
+## Script Editor
+Available by loading Krkr2Compat included in the Kirikiri Z repository.
 
-## フォント選択ダイアログ(Font.doUserSelect)
-吉里吉里Zリポジトリに同梱されている Krkr2Compat を読み込むと利用可能。
+## Font Selection Dialog (Font.doUserSelect)
+Available by loading Krkr2Compat included in the Kirikiri Z repository.
 
-## 1行入力ダイアログ(System.inputString)
-吉里吉里Zリポジトリに同梱されている Krkr2Compat を読み込むと利用可能。
+## Single-line Input Dialog (System.inputString)
+Available by loading Krkr2Compat included in the Kirikiri Z repository.
 
 ## Layer.hint
-TJS で実装可能。詳しくは[ツールチップの表示方法](./tooltip.md)を参照。
+Can be implemented in TJS. See [How to display tooltips](./tooltip.md) for details.
 
-## Layer クラスの obsolete メソッド
-affineBlend/affinePile/blendRect/pileRect/stretchBlend/stretchPileメソッドは以下のようなTJS で実装可能。
+## Obsolete methods of the Layer class
+The affineBlend/affinePile/blendRect/pileRect/stretchBlend/stretchPile methods can be implemented in TJS as follows.
 
 ```
 Layer.affineBlend = function(src, sleft, stop, swidth, sheight, affine, A, B, C, D, E, F, opa=255, type=stNearest) {
